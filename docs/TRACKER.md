@@ -45,3 +45,8 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - DONE: scripts/eda/make_clean_splits.py (run: 388 groups, 5 folds, pooled OOF test 392 images), scripts/eda/verify_splits.py (all checks pass), data_splits/{official,clean5}/, scripts/common/taxonomy.py, scripts/evaluation/{confusion,aggregate_baseline}.py, scripts/training/run_baseline.py (dry-run tested; GPU path untested), notebooks/kaggle/01_baseline_E1_E2.ipynb.
 - NEXT: user git init/commit/push of hbfmid-research -> run the Kaggle notebook (E1 + E2 folds, then noise-floor seeds) -> aggregate -> Gates A and A2.
 - Pending: pin Ultralytics version after the first run; modality tags; FracAtlas inspection.
+
+## Update 2026-11-17 (evening)
+- Kaggle smoke test passed (ultralytics 8.4.215, torch 2.11.0+cu130, python 3.13, 2x T4; 2 runs in parallel, 2.2-2.3 min each for 2 epochs). Real run E1 + E2 folds 0-4 + noise seeds 43/44 started by user (Save Version "E1E2 v1").
+- Modality tags: scripts/eda/tag_modality.py -> results/eda/modality_tags.csv, modality_summary.json. Rule = 'mri' in file name (no group mixes modalities). 202 MRI images / 56 groups (13%), 1,337 X-ray; name-tag gives 86 raw MRI, the dataset card says 131 (unexplained; 0/48 sampled untagged groups were MRI). Pooled out-of-fold test: 57 MRI of 392. Plan: report X-ray and MRI pooled, not per fold. Simple intensity statistics do NOT separate modality (tested, failed).
+- requirements.txt pin ultralytics==8.4.215 (local; commit pending from user's repo folder).
