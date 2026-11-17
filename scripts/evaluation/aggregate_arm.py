@@ -7,11 +7,12 @@ import numpy as np
 
 ap = argparse.ArgumentParser(); ap.add_argument('--name', required=True); ap.add_argument('--runs', nargs='+', required=True); ap.add_argument('--out', required=True)
 ap.add_argument('--model', default='yolov8s.pt')
+ap.add_argument('--arm-tag', default='baseline', help="'arm' field in metrics.json (older runs have none = baseline)")
 a = ap.parse_args()
 R = []
 for d in a.runs:
     R += [json.loads(Path(p).read_text()) for p in glob.glob(str(Path(d) / '*/metrics.json'))]
-R = [r for r in R if r['mode'] == 'clean' and r.get('protocol') == 'fixed_last' and r['model'] == a.model]
+R = [r for r in R if r['mode'] == 'clean' and r.get('protocol') == 'fixed_last' and r['model'] == a.model and r.get('arm', 'baseline') == a.arm_tag]
 folds = sorted({r['fold'] for r in R}); seeds = sorted({r['seed'] for r in R})
 get = {'map5095': lambda r: r['test']['map5095'], 'macro': lambda r: r['test']['macro_eligible_ap5095'], 'map50': lambda r: r['test']['map50']}
 res = {'arm': a.name, 'folds': folds, 'seeds': seeds, 'n_runs': len(R), 'per_fold': {}, 'complete': True}

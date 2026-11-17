@@ -74,3 +74,10 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Fixed-epoch protocol (last.pt): mean seed sd 0.0126 vs 0.0238 for validation-selected best.pt. Detectable effect about 1.6 pts (1 seed) / 0.9 pt (3 seeds), rough (4 df).
 - New: scripts/evaluation/{leak_probe_recall,aggregate_arm}.py, notebooks/kaggle/03_arm1_baseline_fixed.ipynb (folds 2-4 x seeds 42/43/44).
 - NEXT: run notebook 03 (about 2.4 h wall); meanwhile build FracAtlas loader + class-balanced loss arms.
+
+## Update 2026-11-17 (arms built, not yet run) - see docs/ARMS_DESIGN.md
+- Controls committed (93d34af); the zip was extracted twice, so results/controls/controls_results/ duplicates results/controls/ (remove with git rm -r; compare/aggregate scripts only read one level, so results are unaffected). Notebook 03 (arm 1, folds 2-4 x 3 seeds) started by the user.
+- New code (CPU dry-tested on a synthetic dataset, not run on GPU): scripts/training/class_weights.py, pretrain_fracatlas.py; scripts/data/prepare_fracatlas_yolo.py (generic + scale-matched zoom variants, tested on 30 real FracAtlas images: zoom brings the anchor boxes to a median 88.3 px, crops checked visually); run_baseline.py gains --cls-weight {raw,group} --cls-pw --init-weights --extra-train --extra-names --arm; aggregate_arm.py --arm-tag; scripts/evaluation/compare_arms.py (paired by fold, localisation recall); notebooks 04 (arms 2, 3) and 05 (arms 6, 7'; VARIANT generic|zoom).
+- Verified: our class weights equal Ultralytics' native cls_pw=0.5 weights (callback reaches the criterion). FINDING: Ultralytics 8.4.215 already ships cls_pw, so arm 2 is a built-in option and arm 3 (group counts) is a thin extension; raw and group weights differ <= 33% per class, so arms 2 vs 3 will likely not be separable.
+- Settings fixed before any arm result: p = 0.5; FracAtlas pre-training 50 epochs seed 42; crops: target 88.3 px, max zoom 4, 2 per image; pilot = seed 42 x 5 folds; advance rule in ARMS_DESIGN.md.
+- NEXT: user commits + pushes; notebook 03 result must be pushed before 04/05 (they compare against it); approval to spend GPU on 04 then 05.
