@@ -1,0 +1,158 @@
+{
+  "inlier_threshold": 25,
+  "n_images": 1539,
+  "candidate_pairs": 28638,
+  "inlier_histogram_candidate_pairs": {
+    "0-4": 19867,
+    "5-7": 3705,
+    "8-9": 590,
+    "10-11": 253,
+    "12-14": 198,
+    "15-19": 208,
+    "20-24": 189,
+    "25-29": 172,
+    "30-39": 292,
+    "40-59": 549,
+    "60-99": 860,
+    "100-999": 1755
+  },
+  "main": {
+    "n_groups": 388,
+    "groups_spanning_multiple_splits": 105,
+    "valid_imgs_with_train_copy": 96,
+    "valid_imgs_total": 128,
+    "test_imgs_with_train_copy": 48,
+    "test_imgs_total": 64,
+    "test_imgs_with_valid_copy": 18
+  },
+  "threshold_sensitivity": {
+    "12": {
+      "n_groups": 244,
+      "groups_spanning_multiple_splits": 88,
+      "valid_imgs_with_train_copy": 102,
+      "valid_imgs_total": 128,
+      "test_imgs_with_train_copy": 54,
+      "test_imgs_total": 64,
+      "test_imgs_with_valid_copy": 30
+    },
+    "15": {
+      "n_groups": 299,
+      "groups_spanning_multiple_splits": 101,
+      "valid_imgs_with_train_copy": 99,
+      "valid_imgs_total": 128,
+      "test_imgs_with_train_copy": 53,
+      "test_imgs_total": 64,
+      "test_imgs_with_valid_copy": 24
+    },
+    "20": {
+      "n_groups": 350,
+      "groups_spanning_multiple_splits": 104,
+      "valid_imgs_with_train_copy": 97,
+      "valid_imgs_total": 128,
+      "test_imgs_with_train_copy": 51,
+      "test_imgs_total": 64,
+      "test_imgs_with_valid_copy": 19
+    },
+    "25": {
+      "n_groups": 388,
+      "groups_spanning_multiple_splits": 105,
+      "valid_imgs_with_train_copy": 96,
+      "valid_imgs_total": 128,
+      "test_imgs_with_train_copy": 48,
+      "test_imgs_total": 64,
+      "test_imgs_with_valid_copy": 18
+    },
+    "30": {
+      "n_groups": 437,
+      "groups_spanning_multiple_splits": 103,
+      "valid_imgs_with_train_copy": 95,
+      "valid_imgs_total": 128,
+      "test_imgs_with_train_copy": 47,
+      "test_imgs_total": 64,
+      "test_imgs_with_valid_copy": 18
+    },
+    "40": {
+      "n_groups": 518,
+      "groups_spanning_multiple_splits": 95,
+      "valid_imgs_with_train_copy": 85,
+      "valid_imgs_total": 128,
+      "test_imgs_with_train_copy": 44,
+      "test_imgs_total": 64,
+      "test_imgs_with_valid_copy": 17
+    }
+  },
+  "group_size_distribution": {
+    "1": 157,
+    "2": 8,
+    "3": 57,
+    "4": 10,
+    "5": 29,
+    "6": 21,
+    "7": 56,
+    "9": 43,
+    "10": 1,
+    "11": 1,
+    "12": 2,
+    "14": 1,
+    "16": 1,
+    "30": 1
+  },
+  "per_class_images_all_splits": {
+    "Comminuted": 180,
+    "Greenstick": 92,
+    "Healthy": 64,
+    "Linear": 22,
+    "Oblique Displaced": 382,
+    "Oblique": 57,
+    "Segmental": 21,
+    "Spiral": 74,
+    "Transverse Displaced": 639,
+    "Transverse": 124
+  },
+  "per_class_independent_groups": {
+    "Comminuted": 36,
+    "Greenstick": 43,
+    "Healthy": 12,
+    "Linear": 5,
+    "Oblique Displaced": 102,
+    "Oblique": 10,
+    "Segmental": 4,
+    "Spiral": 22,
+    "Transverse Displaced": 163,
+    "Transverse": 31
+  },
+  "test_images_with_train_copy_by_class [leaked,total]": {
+    "Spiral": [
+      2,
+      3
+    ],
+    "Oblique Displaced": [
+      13,
+      16
+    ],
+    "Transverse Displaced": [
+      18,
+      22
+    ],
+    "Oblique": [
+      2,
+      2
+    ],
+    "Transverse": [
+      5,
+      8
+    ],
+    "Comminuted": [
+      5,
+      9
+    ],
+    "Healthy": [
+      2,
+      3
+    ],
+    "Greenstick": [
+      1,
+      1
+    ]
+  }
+}

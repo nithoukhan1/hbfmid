@@ -1,0 +1,354 @@
+{
+  "k": 5,
+  "seed": 42,
+  "restarts": 2000,
+  "objective": 0.16085241097717928,
+  "groups_csv_sha256": "eecedae03cf8c1744b84f658a9bd9577bd2815535db41e880df0678868896ff9",
+  "n_images": 1539,
+  "n_groups": 388,
+  "n_representatives": 392,
+  "folds": {
+    "0": {
+      "test_fold": 0,
+      "val_fold": 1,
+      "n_groups": {
+        "train": 233,
+        "val": 78,
+        "test": 77
+      },
+      "n_images": {
+        "train": 933,
+        "val": 78,
+        "test": 79,
+        "excluded": 449
+      },
+      "class_groups": {
+        "Comminuted": {
+          "train": 21,
+          "val": 7,
+          "test": 8
+        },
+        "Greenstick": {
+          "train": 26,
+          "val": 8,
+          "test": 9
+        },
+        "Healthy": {
+          "train": 7,
+          "val": 2,
+          "test": 3
+        },
+        "Linear": {
+          "train": 3,
+          "val": 1,
+          "test": 1
+        },
+        "Oblique Displaced": {
+          "train": 62,
+          "val": 20,
+          "test": 20
+        },
+        "Oblique": {
+          "train": 6,
+          "val": 2,
+          "test": 2
+        },
+        "Segmental": {
+          "train": 3,
+          "val": 1,
+          "test": 0
+        },
+        "Spiral": {
+          "train": 13,
+          "val": 5,
+          "test": 4
+        },
+        "Transverse Displaced": {
+          "train": 98,
+          "val": 33,
+          "test": 32
+        },
+        "Transverse": {
+          "train": 18,
+          "val": 6,
+          "test": 7
+        }
+      }
+    },
+    "1": {
+      "test_fold": 1,
+      "val_fold": 2,
+      "n_groups": {
+        "train": 232,
+        "val": 78,
+        "test": 78
+      },
+      "n_images": {
+        "train": 970,
+        "val": 78,
+        "test": 78,
+        "excluded": 413
+      },
+      "class_groups": {
+        "Comminuted": {
+          "train": 22,
+          "val": 7,
+          "test": 7
+        },
+        "Greenstick": {
+          "train": 26,
+          "val": 9,
+          "test": 8
+        },
+        "Healthy": {
+          "train": 7,
+          "val": 3,
+          "test": 2
+        },
+        "Linear": {
+          "train": 3,
+          "val": 1,
+          "test": 1
+        },
+        "Oblique Displaced": {
+          "train": 62,
+          "val": 20,
+          "test": 20
+        },
+        "Oblique": {
+          "train": 6,
+          "val": 2,
+          "test": 2
+        },
+        "Segmental": {
+          "train": 2,
+          "val": 1,
+          "test": 1
+        },
+        "Spiral": {
+          "train": 13,
+          "val": 4,
+          "test": 5
+        },
+        "Transverse Displaced": {
+          "train": 97,
+          "val": 33,
+          "test": 33
+        },
+        "Transverse": {
+          "train": 19,
+          "val": 6,
+          "test": 6
+        }
+      }
+    },
+    "2": {
+      "test_fold": 2,
+      "val_fold": 3,
+      "n_groups": {
+        "train": 233,
+        "val": 77,
+        "test": 78
+      },
+      "n_images": {
+        "train": 917,
+        "val": 79,
+        "test": 78,
+        "excluded": 465
+      },
+      "class_groups": {
+        "Comminuted": {
+          "train": 22,
+          "val": 7,
+          "test": 7
+        },
+        "Greenstick": {
+          "train": 25,
+          "val": 9,
+          "test": 9
+        },
+        "Healthy": {
+          "train": 7,
+          "val": 2,
+          "test": 3
+        },
+        "Linear": {
+          "train": 3,
+          "val": 1,
+          "test": 1
+        },
+        "Oblique Displaced": {
+          "train": 61,
+          "val": 21,
+          "test": 20
+        },
+        "Oblique": {
+          "train": 6,
+          "val": 2,
+          "test": 2
+        },
+        "Segmental": {
+          "train": 2,
+          "val": 1,
+          "test": 1
+        },
+        "Spiral": {
+          "train": 13,
+          "val": 5,
+          "test": 4
+        },
+        "Transverse Displaced": {
+          "train": 98,
+          "val": 32,
+          "test": 33
+        },
+        "Transverse": {
+          "train": 19,
+          "val": 6,
+          "test": 6
+        }
+      }
+    },
+    "3": {
+      "test_fold": 3,
+      "val_fold": 4,
+      "n_groups": {
+        "train": 233,
+        "val": 78,
+        "test": 77
+      },
+      "n_images": {
+        "train": 904,
+        "val": 78,
+        "test": 79,
+        "excluded": 478
+      },
+      "class_groups": {
+        "Comminuted": {
+          "train": 22,
+          "val": 7,
+          "test": 7
+        },
+        "Greenstick": {
+          "train": 26,
+          "val": 8,
+          "test": 9
+        },
+        "Healthy": {
+          "train": 8,
+          "val": 2,
+          "test": 2
+        },
+        "Linear": {
+          "train": 3,
+          "val": 1,
+          "test": 1
+        },
+        "Oblique Displaced": {
+          "train": 60,
+          "val": 21,
+          "test": 21
+        },
+        "Oblique": {
+          "train": 6,
+          "val": 2,
+          "test": 2
+        },
+        "Segmental": {
+          "train": 2,
+          "val": 1,
+          "test": 1
+        },
+        "Spiral": {
+          "train": 13,
+          "val": 4,
+          "test": 5
+        },
+        "Transverse Displaced": {
+          "train": 98,
+          "val": 33,
+          "test": 32
+        },
+        "Transverse": {
+          "train": 19,
+          "val": 6,
+          "test": 6
+        }
+      }
+    },
+    "4": {
+      "test_fold": 4,
+      "val_fold": 0,
+      "n_groups": {
+        "train": 233,
+        "val": 77,
+        "test": 78
+      },
+      "n_images": {
+        "train": 893,
+        "val": 79,
+        "test": 78,
+        "excluded": 489
+      },
+      "class_groups": {
+        "Comminuted": {
+          "train": 21,
+          "val": 8,
+          "test": 7
+        },
+        "Greenstick": {
+          "train": 26,
+          "val": 9,
+          "test": 8
+        },
+        "Healthy": {
+          "train": 7,
+          "val": 3,
+          "test": 2
+        },
+        "Linear": {
+          "train": 3,
+          "val": 1,
+          "test": 1
+        },
+        "Oblique Displaced": {
+          "train": 61,
+          "val": 20,
+          "test": 21
+        },
+        "Oblique": {
+          "train": 6,
+          "val": 2,
+          "test": 2
+        },
+        "Segmental": {
+          "train": 3,
+          "val": 0,
+          "test": 1
+        },
+        "Spiral": {
+          "train": 14,
+          "val": 4,
+          "test": 4
+        },
+        "Transverse Displaced": {
+          "train": 98,
+          "val": 32,
+          "test": 33
+        },
+        "Transverse": {
+          "train": 18,
+          "val": 7,
+          "test": 6
+        }
+      }
+    }
+  },
+  "official_test_with_train_copy": 48,
+  "official_test_no_train_copy": 16,
+  "official_val_with_train_copy": 96,
+  "official_val_no_train_copy": 32,
+  "missing_files": 0,
+  "oof_test_images": 392,
+  "warnings": []
+}

@@ -1,0 +1,12 @@
+# never commit images, weights, caches
+tmp_cache/
+*.pt
+*.pth
+*.onnx
+*.npz
+*.npy
+runs/
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+*.zip
