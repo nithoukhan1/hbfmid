@@ -68,3 +68,9 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - DECISION: FracTree dropped as core; paper A (benchmark + audit + error analysis) is the anchor; improvement study = FracAtlas transfer for detection recall (Gate C); fixed-epoch protocol (last.pt) + 3 seeds from now on.
 - New code (to commit): scripts/eda/make_official_dedup.py + data_splits/official_dedup/, run_baseline.py (--mode official_dedup, --fixed-epochs), scripts/evaluation/{aggregate_controls,error_decomposition}.py, notebooks/kaggle/02_controls_E1b_noise.ipynb. run_baseline.py changes are dry-run tested only.
 - NEXT: Kaggle notebook 02 (smoke first), then pilot arms.
+
+## Update 2026-11-17 (controls) - see docs/RESULTS_CONTROLS.md
+- E1b (official split de-duplicated, same 64 test images): 0.166 mAP50-95 vs 0.490 leaky. Box recall on the 48 test images with a train copy: 0.98 -> 0.37; on the 16 without: 0.71 -> 0.59. Leakage attribution confirmed (AP-based probe was too noisy; use box recall).
+- Fixed-epoch protocol (last.pt): mean seed sd 0.0126 vs 0.0238 for validation-selected best.pt. Detectable effect about 1.6 pts (1 seed) / 0.9 pt (3 seeds), rough (4 df).
+- New: scripts/evaluation/{leak_probe_recall,aggregate_arm}.py, notebooks/kaggle/03_arm1_baseline_fixed.ipynb (folds 2-4 x seeds 42/43/44).
+- NEXT: run notebook 03 (about 2.4 h wall); meanwhile build FracAtlas loader + class-balanced loss arms.

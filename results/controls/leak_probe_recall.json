@@ -1,0 +1,26 @@
+{
+ "E1_leaky": {
+  "with_train_copy": {
+   "gt_boxes": 49,
+   "localized": 0.98,
+   "correct_class": 0.98
+  },
+  "no_train_copy": {
+   "gt_boxes": 17,
+   "localized": 0.706,
+   "correct_class": 0.706
+  }
+ },
+ "E1b_dedup": {
+  "with_train_copy": {
+   "gt_boxes": 49,
+   "localized": 0.367,
+   "correct_class": 0.367
+  },
+  "no_train_copy": {
+   "gt_boxes": 17,
+   "localized": 0.647,
+   "correct_class": 0.588
+  }
+ }
+}
