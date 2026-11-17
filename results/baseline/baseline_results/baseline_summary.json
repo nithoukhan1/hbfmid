@@ -1,0 +1,57 @@
+{
+  "n_runs": 8,
+  "E1_runs": 1,
+  "E2_runs": 7,
+  "E2_test_map5095_mean": 0.20839028692890152,
+  "E2_test_map5095_sd": 0.03477241123126345,
+  "E2_macro_mean": 0.2561121098421494,
+  "gateA": {
+    "E1_test_map5095": 0.4897976018949219,
+    "E2_mean_map5095": 0.20839028692890152,
+    "delta": 0.28140731496602034,
+    "E1_macro": 0.48979760189492194,
+    "E2_macro": 0.2561121098421494,
+    "delta_macro": 0.23368549205277256
+  },
+  "leak_probe": {
+    "with_copy_map5095": 0.5117527457467685,
+    "no_copy_map5095": 0.46602083333333333,
+    "gap": 0.045731912413435216
+  },
+  "gateA2_pooled_E2": {
+    "correct": 248,
+    "wrong_class": 23,
+    "missed_fn": 186,
+    "false_pos_fp": 70,
+    "sibling_confusions": 16,
+    "same_base_confusions": 8,
+    "sibling_share_of_wrong": 0.6956521739130435,
+    "sibling_share_of_all_errors": 0.05734767025089606
+  },
+  "E1_error_stats": {
+    "official_yolov8s_s42": {
+      "correct": 60,
+      "wrong_class": 0,
+      "missed_fn": 6,
+      "false_pos_fp": 10,
+      "sibling_confusions": 0,
+      "same_base_confusions": 0,
+      "sibling_share_of_wrong": null,
+      "sibling_share_of_all_errors": 0.0
+    }
+  },
+  "noise_floor": {
+    "sd_map5095": 0.021128202653620594,
+    "sd_macro": 0.02376922798532316
+  },
+  "environment": {
+    "ultralytics": "8.4.215",
+    "torch": "2.11.0+cu130",
+    "python": "3.13.16",
+    "gpu": "Tesla T4",
+    "model": "yolov8s.pt",
+    "epochs_cfg": 100,
+    "imgsz": 640,
+    "batch": 16
+  }
+}
