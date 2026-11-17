@@ -1,0 +1,38 @@
+{
+ "test_reps_pooled": 392,
+ "rule_per_fold(train-fitted)": {
+  "0": {
+   "MRI": "Comminuted",
+   "XR": "Transverse Displaced"
+  },
+  "1": {
+   "MRI": "Comminuted",
+   "XR": "Transverse Displaced"
+  },
+  "2": {
+   "MRI": "Comminuted",
+   "XR": "Transverse Displaced"
+  },
+  "3": {
+   "MRI": "Comminuted",
+   "XR": "Transverse Displaced"
+  },
+  "4": {
+   "MRI": "Comminuted",
+   "XR": "Transverse Displaced"
+  }
+ },
+ "rule_hit_rate(any true class == predicted)": 0.429,
+ "always_majority_hit_rate": 0.418,
+ "comminuted_test_reps": 36,
+ "mri_test_reps": 57,
+ "comminuted_that_are_MRI(recall_of_MRI_flag)": 0.694,
+ "MRI_that_are_comminuted(precision_of_MRI_flag)": 0.439,
+ "MRI_test_reps_by_class": {
+  "Comminuted": 25,
+  "Greenstick": 2,
+  "Linear": 1,
+  "Oblique Displaced": 8,
+  "Transverse Displaced": 21
+ }
+}
