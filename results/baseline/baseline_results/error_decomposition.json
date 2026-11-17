@@ -1,0 +1,134 @@
+{
+ "E2_clean_conf0.05": {
+  "gt_boxes": 457,
+  "localized": 0.694,
+  "correct": 0.611,
+  "sibling": 0.055,
+  "other_class": 0.028,
+  "missed": 0.306,
+  "class_correct_among_localized": 0.88
+ },
+ "E2_by_modality_conf0.05": {
+  "MRI": {
+   "correct": 0.56,
+   "missed": 0.42,
+   "other_class": 0.02,
+   "sibling": 0.0,
+   "n": 62
+  },
+  "XR": {
+   "correct": 0.62,
+   "missed": 0.29,
+   "other_class": 0.03,
+   "sibling": 0.06,
+   "n": 395
+  }
+ },
+ "E2_by_class_conf0.05": {
+  "Comminuted": {
+   "correct": 17,
+   "missed": 18,
+   "other_class": 3,
+   "sibling": 0
+  },
+  "Greenstick": {
+   "correct": 29,
+   "missed": 8,
+   "other_class": 6,
+   "sibling": 0
+  },
+  "Healthy": {
+   "correct": 5,
+   "missed": 7,
+   "other_class": 0,
+   "sibling": 0
+  },
+  "Linear": {
+   "correct": 0,
+   "missed": 5,
+   "other_class": 0,
+   "sibling": 0
+  },
+  "Oblique Displaced": {
+   "correct": 67,
+   "missed": 34,
+   "other_class": 1,
+   "sibling": 5
+  },
+  "Oblique": {
+   "correct": 2,
+   "missed": 4,
+   "other_class": 0,
+   "sibling": 4
+  },
+  "Segmental": {
+   "correct": 0,
+   "missed": 2,
+   "other_class": 2,
+   "sibling": 0
+  },
+  "Spiral": {
+   "correct": 12,
+   "missed": 10,
+   "other_class": 0,
+   "sibling": 0
+  },
+  "Transverse Displaced": {
+   "correct": 130,
+   "missed": 43,
+   "other_class": 1,
+   "sibling": 7
+  },
+  "Transverse": {
+   "correct": 17,
+   "missed": 9,
+   "other_class": 0,
+   "sibling": 9
+  }
+ },
+ "E2_clean_conf0.1": {
+  "gt_boxes": 457,
+  "localized": 0.65,
+  "correct": 0.584,
+  "sibling": 0.046,
+  "other_class": 0.02,
+  "missed": 0.35,
+  "class_correct_among_localized": 0.899
+ },
+ "E2_clean_conf0.25": {
+  "gt_boxes": 457,
+  "localized": 0.593,
+  "correct": 0.543,
+  "sibling": 0.035,
+  "other_class": 0.015,
+  "missed": 0.407,
+  "class_correct_among_localized": 0.915
+ },
+ "E1_official_conf0.05": {
+  "gt_boxes": 66,
+  "localized": 0.924,
+  "correct": 0.924,
+  "sibling": 0.0,
+  "other_class": 0.0,
+  "missed": 0.076,
+  "class_correct_among_localized": 1.0
+ },
+ "E1_official_conf0.1": {
+  "gt_boxes": 66,
+  "localized": 0.924,
+  "correct": 0.924,
+  "sibling": 0.0,
+  "other_class": 0.0,
+  "missed": 0.076,
+  "class_correct_among_localized": 1.0
+ },
+ "E1_official_conf0.25": {
+  "gt_boxes": 66,
+  "localized": 0.909,
+  "correct": 0.909,
+  "sibling": 0.0,
+  "other_class": 0.0,
+  "missed": 0.091,
+  "class_correct_among_localized": 1.0
+ }
+}

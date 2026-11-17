@@ -1,0 +1,15 @@
+{
+ "train": 806,
+ "val": 109,
+ "test": 64,
+ "official_sizes": {
+  "train": 1347,
+  "valid": 128,
+  "test": 64
+ },
+ "train_removed": 541,
+ "val_removed": 19,
+ "train_groups": 245,
+ "val_groups": 86,
+ "test_groups": 57
+}

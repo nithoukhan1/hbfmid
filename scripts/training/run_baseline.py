@@ -37,6 +37,10 @@ def split_files(splits_dir, mode, fold):
         f = {'train': d / 'train.txt', 'val': d / 'val.txt', 'test': d / 'test.txt'}
         probe = {'test_with_train_copy': d / 'test_with_train_copy.txt',
                  'test_no_train_copy': d / 'test_no_train_copy.txt'}
+    elif mode == 'official_dedup':
+        d = Path(splits_dir) / 'official_dedup'
+        f = {r: d / f'{r}.txt' for r in ['train', 'val', 'test']}
+        probe = {}
     else:
         d = Path(splits_dir) / 'clean5'
         f = {r: d / f'fold{fold}_{r}.txt' for r in ['train', 'val', 'test']}
@@ -72,7 +76,7 @@ def extract(m):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--mode', choices=['official', 'clean'], required=True)
+    ap.add_argument('--mode', choices=['official', 'official_dedup', 'clean'], required=True)
     ap.add_argument('--fold', type=int, default=0)
     ap.add_argument('--model', default='yolov8s.pt')
     ap.add_argument('--seed', type=int, default=42)
@@ -87,13 +91,17 @@ def main():
     ap.add_argument('--out', required=True)
     ap.add_argument('--tag', default=None)
     ap.add_argument('--conf-thr', type=float, default=0.25)
+    ap.add_argument('--fixed-epochs', action='store_true',
+                    help='no early stopping (patience=epochs); primary metrics from last.pt (EMA, no val-based selection), best.pt kept as *_best')
     ap.add_argument('--keep-weights', action='store_true')
     ap.add_argument('--allow-writable-data', action='store_true')
     ap.add_argument('--dry-run', action='store_true', help='write lists/yaml and exit (no ultralytics)')
     a = ap.parse_args()
 
     stem = Path(a.model).stem
-    tag = a.tag or (f'official_{stem}_s{a.seed}' if a.mode == 'official' else f'clean_f{a.fold}_{stem}_s{a.seed}')
+    base = {'official': f'official_{stem}_s{a.seed}', 'official_dedup': f'officialdedup_{stem}_s{a.seed}',
+            'clean': f'clean_f{a.fold}_{stem}_s{a.seed}'}[a.mode]
+    tag = a.tag or (base + ('_fx' if a.fixed_epochs else ''))
     run = Path(a.out).resolve() / tag
     root = Path(a.data_root).resolve()
     assert root not in run.parents and run != root, 'output must not be inside the dataset folder'
@@ -128,20 +136,21 @@ def main():
 
     t0 = time.time()
     model = YOLO(a.model)
-    model.train(data=str(yaml_main), epochs=a.epochs, patience=a.patience, imgsz=a.imgsz, batch=a.batch,
+    model.train(data=str(yaml_main), epochs=a.epochs, patience=(a.epochs if a.fixed_epochs else a.patience), imgsz=a.imgsz, batch=a.batch,
                 seed=a.seed, deterministic=True, workers=a.workers, device=a.device,
                 project=str(run), name='train', exist_ok=True, plots=False)
     train_s = time.time() - t0
-    best = run / 'train' / 'weights' / 'best.pt'
-    model = YOLO(str(best))
+    wdir = run / 'train' / 'weights'
+    model = YOLO(str(wdir / ('last.pt' if a.fixed_epochs else 'best.pt')))
 
-    def run_val(yaml_path, split, name):
-        return extract(model.val(data=str(yaml_path), split=split, imgsz=a.imgsz, batch=a.batch, conf=0.001,
+    def run_val(yaml_path, split, name, m=None):
+        return extract((m or model).val(data=str(yaml_path), split=split, imgsz=a.imgsz, batch=a.batch, conf=0.001,
                                  iou=0.7, device=a.device, workers=a.workers, project=str(run), name=name,
                                  exist_ok=True, plots=False, verbose=False))
 
     res = {'tag': tag, 'mode': a.mode, 'fold': a.fold if a.mode == 'clean' else None, 'model': a.model,
-           'seed': a.seed, 'epochs_cfg': a.epochs, 'patience': a.patience, 'imgsz': a.imgsz, 'batch': a.batch,
+           'seed': a.seed, 'epochs_cfg': a.epochs, 'patience': (a.epochs if a.fixed_epochs else a.patience),
+           'protocol': 'fixed_last' if a.fixed_epochs else 'earlystop_best', 'imgsz': a.imgsz, 'batch': a.batch,
            'n_images': n_img, 'train_seconds': round(train_s, 1),
            'ultralytics': ultralytics.__version__, 'torch': torch.__version__, 'python': platform.python_version(),
            'gpu': torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu'}
@@ -158,6 +167,10 @@ def main():
     res['test'] = run_val(yaml_main, 'test', 'val_test')
     for name, y in probe_yaml.items():
         res['probe_' + name] = run_val(y, 'test', 'probe_' + name)
+    if a.fixed_epochs:   # secondary: validation-selected checkpoint, to compare noise
+        mb = YOLO(str(wdir / 'best.pt'))
+        res['val_best'] = run_val(yaml_main, 'val', 'valbest_val', mb)
+        res['test_best'] = run_val(yaml_main, 'test', 'valbest_test', mb)
 
     # predictions on test + confusion (Gate A2)
     test_rel = read_list(files['test'])

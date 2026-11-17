@@ -62,3 +62,9 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - scripts/eda/modality_shortcut_baseline.py -> results/eda/modality_shortcut_baseline.json (rule fitted on train folds, scored on pooled 392 test reps). Modality alone barely beats always-majority (hit rate 0.429 vs 0.418; rule = MRI->Comminuted, X-ray->Transverse Displaced). But 25/36 (69%) of Comminuted test reps are MRI and 25/57 (44%) of MRI test reps are Comminuted: a partial shortcut for Comminuted only. Plan: report Comminuted separately for MRI and X-ray (X-ray Comminuted has only 11 groups: exploratory).
 - scripts/data/fracatlas_manifest.py -> data_splits/fracatlas/manifest.csv (+ manifest_summary.json): 4,083 rows, boxes as normalised cx,cy,w,h (class 0), region flags, decode_ok. 59 images fail full decode (truncated JPEG), ALL non-fractured -> training loaders must skip rows with decode_ok == False. Dataset folders untouched.
 - DECISION: do not write the FracTree head code until Gates A and A2 are read (A2 failing would weaken the motivation for the tree).
+
+## Update 2026-11-17 (E1/E2 results) - see docs/RESULTS_E1_E2.md and docs/IDEA_V3_1_DECISION.md
+- E1/E2 done (8 runs, all OK, about 1.6 h wall). Gate A PASS (0.490 vs 0.208 mAP50-95). Gate A2 FAIL (sibling share 5.7%; 31-41% of GT boxes unlocalized). Seed sd 2.1 pts.
+- DECISION: FracTree dropped as core; paper A (benchmark + audit + error analysis) is the anchor; improvement study = FracAtlas transfer for detection recall (Gate C); fixed-epoch protocol (last.pt) + 3 seeds from now on.
+- New code (to commit): scripts/eda/make_official_dedup.py + data_splits/official_dedup/, run_baseline.py (--mode official_dedup, --fixed-epochs), scripts/evaluation/{aggregate_controls,error_decomposition}.py, notebooks/kaggle/02_controls_E1b_noise.ipynb. run_baseline.py changes are dry-run tested only.
+- NEXT: Kaggle notebook 02 (smoke first), then pilot arms.
