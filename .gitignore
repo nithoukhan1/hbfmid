@@ -10,3 +10,6 @@ __pycache__/
 .ipynb_checkpoints/
 .venv/
 *.zip
+
+# cross-dataset audit figure (contains dataset images; kept local)
+results/eda/figures/cross_top_pairs.jpg
