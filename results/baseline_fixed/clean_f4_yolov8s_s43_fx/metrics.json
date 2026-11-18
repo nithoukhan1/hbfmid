@@ -1,0 +1,438 @@
+{
+  "tag": "clean_f4_yolov8s_s43_fx",
+  "arm": "baseline",
+  "mode": "clean",
+  "fold": 4,
+  "model": "yolov8s.pt",
+  "seed": 43,
+  "epochs_cfg": 100,
+  "patience": 100,
+  "protocol": "fixed_last",
+  "imgsz": 640,
+  "batch": 16,
+  "cls_weight": "none",
+  "cls_pw": 0.5,
+  "cls_counts": null,
+  "cls_weights": null,
+  "init_weights": null,
+  "extra_train": [],
+  "extra_names": [],
+  "n_images": {
+    "train": 893,
+    "val": 79,
+    "test": 78
+  },
+  "train_seconds": 1457.0,
+  "ultralytics": "8.4.215",
+  "torch": "2.11.0+cu130",
+  "python": "3.13.16",
+  "gpu": "Tesla T4",
+  "epochs_run": 100,
+  "best_epoch": 43,
+  "val": {
+    "map50": 0.3629383130649011,
+    "map5095": 0.197894939336727,
+    "precision": 0.8314398577104924,
+    "recall": 0.332528487059898,
+    "per_class": {
+      "Comminuted": {
+        "ap50": 0.3359090909090909,
+        "ap5095": 0.20927272727272728
+      },
+      "Greenstick": {
+        "ap50": 0.665,
+        "ap5095": 0.3203333333333334
+      },
+      "Healthy": {
+        "ap50": 0.1675,
+        "ap5095": 0.1005
+      },
+      "Linear": {
+        "ap50": 0.0,
+        "ap5095": 0.0
+      },
+      "Oblique Displaced": {
+        "ap50": 0.5045979020979021,
+        "ap5095": 0.23907773892773893
+      },
+      "Oblique": {
+        "ap50": 0.0,
+        "ap5095": 0.0
+      },
+      "Spiral": {
+        "ap50": 0.495,
+        "ap5095": 0.35875
+      },
+      "Transverse Displaced": {
+        "ap50": 0.6568663960056882,
+        "ap5095": 0.26053494021102913
+      },
+      "Transverse": {
+        "ap50": 0.44157142857142856,
+        "ap5095": 0.2925857142857143
+      }
+    },
+    "classes_present": [
+      "Comminuted",
+      "Greenstick",
+      "Healthy",
+      "Linear",
+      "Oblique Displaced",
+      "Oblique",
+      "Spiral",
+      "Transverse Displaced",
+      "Transverse"
+    ],
+    "macro_eligible_ap5095": 0.22263180675381788,
+    "n_eligible_present": 8
+  },
+  "test": {
+    "map50": 0.47782126679922426,
+    "map5095": 0.2748387226625776,
+    "precision": 0.836376216888221,
+    "recall": 0.425451944733794,
+    "per_class": {
+      "Comminuted": {
+        "ap50": 0.715,
+        "ap5095": 0.4111666666666666
+      },
+      "Greenstick": {
+        "ap50": 0.745,
+        "ap5095": 0.3919166666666667
+      },
+      "Healthy": {
+        "ap50": 0.495,
+        "ap5095": 0.396
+      },
+      "Linear": {
+        "ap50": 0.0,
+        "ap5095": 0.0
+      },
+      "Oblique Displaced": {
+        "ap50": 0.6616666666666666,
+        "ap5095": 0.4095668290043289
+      },
+      "Oblique": {
+        "ap50": 0.2475,
+        "ap5095": 0.12375
+      },
+      "Segmental": {
+        "ap50": 0.0,
+        "ap5095": 0.0
+      },
+      "Spiral": {
+        "ap50": 0.545,
+        "ap5095": 0.2815
+      },
+      "Transverse Displaced": {
+        "ap50": 0.7065460013255767,
+        "ap5095": 0.2889870642881135
+      },
+      "Transverse": {
+        "ap50": 0.6624999999999999,
+        "ap5095": 0.4454999999999999
+      }
+    },
+    "classes_present": [
+      "Comminuted",
+      "Greenstick",
+      "Healthy",
+      "Linear",
+      "Oblique Displaced",
+      "Oblique",
+      "Segmental",
+      "Spiral",
+      "Transverse Displaced",
+      "Transverse"
+    ],
+    "macro_eligible_ap5095": 0.34354840332822195,
+    "n_eligible_present": 8
+  },
+  "val_best": {
+    "map50": 0.4157138614644314,
+    "map5095": 0.20823645629861393,
+    "precision": 0.6134848772681031,
+    "recall": 0.3605157625971736,
+    "per_class": {
+      "Comminuted": {
+        "ap50": 0.2545121951219512,
+        "ap5095": 0.14940243902439027
+      },
+      "Greenstick": {
+        "ap50": 0.7505555555555556,
+        "ap5095": 0.2765472222222222
+      },
+      "Healthy": {
+        "ap50": 0.4175,
+        "ap5095": 0.3175
+      },
+      "Linear": {
+        "ap50": 0.0,
+        "ap5095": 0.0
+      },
+      "Oblique Displaced": {
+        "ap50": 0.45165216086434573,
+        "ap5095": 0.1916921768707483
+      },
+      "Oblique": {
+        "ap50": 0.265,
+        "ap5095": 0.1325
+      },
+      "Spiral": {
+        "ap50": 0.495,
+        "ap5095": 0.28049999999999997
+      },
+      "Transverse Displaced": {
+        "ap50": 0.6566203821785711,
+        "ap5095": 0.24265248478638063
+      },
+      "Transverse": {
+        "ap50": 0.45058445945945946,
+        "ap5095": 0.2833337837837838
+      }
+    },
+    "classes_present": [
+      "Comminuted",
+      "Greenstick",
+      "Healthy",
+      "Linear",
+      "Oblique Displaced",
+      "Oblique",
+      "Spiral",
+      "Transverse Displaced",
+      "Transverse"
+    ],
+    "macro_eligible_ap5095": 0.23426601333594066,
+    "n_eligible_present": 8
+  },
+  "test_best": {
+    "map50": 0.46883459539539896,
+    "map5095": 0.26552279234659504,
+    "precision": 0.808502859745414,
+    "recall": 0.4549867784233981,
+    "per_class": {
+      "Comminuted": {
+        "ap50": 0.6873529411764706,
+        "ap5095": 0.4157660427807487
+      },
+      "Greenstick": {
+        "ap50": 0.745,
+        "ap5095": 0.3972559523809524
+      },
+      "Healthy": {
+        "ap50": 0.495,
+        "ap5095": 0.3465
+      },
+      "Linear": {
+        "ap50": 0.0,
+        "ap5095": 0.0
+      },
+      "Oblique Displaced": {
+        "ap50": 0.6561904761904762,
+        "ap5095": 0.3628864468864469
+      },
+      "Oblique": {
+        "ap50": 0.2475,
+        "ap5095": 0.12375
+      },
+      "Segmental": {
+        "ap50": 0.0,
+        "ap5095": 0.0
+      },
+      "Spiral": {
+        "ap50": 0.525,
+        "ap5095": 0.2995
+      },
+      "Transverse Displaced": {
+        "ap50": 0.7166563827408896,
+        "ap5095": 0.28087592830424923
+      },
+      "Transverse": {
+        "ap50": 0.6156461538461538,
+        "ap5095": 0.42869355311355306
+      }
+    },
+    "classes_present": [
+      "Comminuted",
+      "Greenstick",
+      "Healthy",
+      "Linear",
+      "Oblique Displaced",
+      "Oblique",
+      "Segmental",
+      "Spiral",
+      "Transverse Displaced",
+      "Transverse"
+    ],
+    "macro_eligible_ap5095": 0.3319034904332438,
+    "n_eligible_present": 8
+  },
+  "confusion_conf_thr": 0.25,
+  "confusion": [
+    [
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2
+    ],
+    [
+      0,
+      6,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      13,
+      0,
+      0,
+      0,
+      0,
+      0,
+      8
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      0,
+      0,
+      2
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      22,
+      0,
+      14
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      4,
+      2
+    ],
+    [
+      1,
+      0,
+      1,
+      0,
+      1,
+      1,
+      0,
+      2,
+      5,
+      0,
+      0
+    ]
+  ],
+  "error_stats": {
+    "correct": 54,
+    "wrong_class": 3,
+    "missed_fn": 32,
+    "false_pos_fp": 11,
+    "sibling_confusions": 2,
+    "same_base_confusions": 1,
+    "sibling_share_of_wrong": 0.6666666666666666,
+    "sibling_share_of_all_errors": 0.043478260869565216
+  },
+  "test_gt_boxes_per_class": {
+    "Comminuted": 7,
+    "Greenstick": 8,
+    "Healthy": 2,
+    "Linear": 1,
+    "Oblique Displaced": 21,
+    "Oblique": 2,
+    "Segmental": 1,
+    "Spiral": 4,
+    "Transverse Displaced": 36,
+    "Transverse": 7
+  }
+}

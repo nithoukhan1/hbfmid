@@ -1,0 +1,5 @@
+train: /kaggle/working/fa_data/fa_generic_c0/lists/train.txt
+val: /kaggle/working/fa_data/fa_generic_c0/lists/val.txt
+nc: 1
+names:
+  0: fracture

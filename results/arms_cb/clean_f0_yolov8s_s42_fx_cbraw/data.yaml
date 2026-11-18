@@ -1,0 +1,15 @@
+train: /kaggle/working/results/arms_cb/clean_f0_yolov8s_s42_fx_cbraw/lists/train.txt
+val: /kaggle/working/results/arms_cb/clean_f0_yolov8s_s42_fx_cbraw/lists/val.txt
+test: /kaggle/working/results/arms_cb/clean_f0_yolov8s_s42_fx_cbraw/lists/test.txt
+nc: 10
+names:
+  0: Comminuted
+  1: Greenstick
+  2: Healthy
+  3: Linear
+  4: Oblique Displaced
+  5: Oblique
+  6: Segmental
+  7: Spiral
+  8: Transverse Displaced
+  9: Transverse

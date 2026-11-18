@@ -1,0 +1,10 @@
+{
+ "tag": "fa_pre_generic_s42",
+ "model": "yolov8s.pt",
+ "epochs": 50,
+ "seed": 42,
+ "train_seconds": 1312.6,
+ "fa_val_map50": 0.6677224022796164,
+ "fa_val_map5095": 0.3010956839180177,
+ "data_dir": "/kaggle/working/fa_data/fa_generic_c0"
+}

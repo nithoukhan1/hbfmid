@@ -1,0 +1,31 @@
+{
+ "variant": "generic",
+ "cls_id": 10,
+ "seed": 42,
+ "n_broken_skipped": 59,
+ "fractured_sources": 717,
+ "negatives": 358,
+ "items_train": 1021,
+ "items_val": 54,
+ "fractured_items": 717,
+ "boxes_kept": 922,
+ "boxes_dropped_in_crops": 0,
+ "box_side_px640_before": {
+  "p10": 22.53,
+  "median": 36.59,
+  "p90": 69.21
+ },
+ "box_side_px640_after": {
+  "p10": 22.53,
+  "median": 36.59,
+  "p90": 69.21
+ },
+ "zoom": {
+  "p10": 1.0,
+  "median": 1.0,
+  "p90": 1.0
+ },
+ "target_side": 88.3,
+ "max_zoom": 4.0,
+ "crops_per_image": 2
+}

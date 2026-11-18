@@ -1,0 +1,15 @@
+train: /kaggle/working/results/baseline_fixed/clean_f4_yolov8s_s43_fx/lists/train.txt
+val: /kaggle/working/results/baseline_fixed/clean_f4_yolov8s_s43_fx/lists/val.txt
+test: /kaggle/working/results/baseline_fixed/clean_f4_yolov8s_s43_fx/lists/test.txt
+nc: 10
+names:
+  0: Comminuted
+  1: Greenstick
+  2: Healthy
+  3: Linear
+  4: Oblique Displaced
+  5: Oblique
+  6: Segmental
+  7: Spiral
+  8: Transverse Displaced
+  9: Transverse

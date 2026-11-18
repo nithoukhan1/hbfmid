@@ -81,3 +81,10 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Verified: our class weights equal Ultralytics' native cls_pw=0.5 weights (callback reaches the criterion). FINDING: Ultralytics 8.4.215 already ships cls_pw, so arm 2 is a built-in option and arm 3 (group counts) is a thin extension; raw and group weights differ <= 33% per class, so arms 2 vs 3 will likely not be separable.
 - Settings fixed before any arm result: p = 0.5; FracAtlas pre-training 50 epochs seed 42; crops: target 88.3 px, max zoom 4, 2 per image; pilot = seed 42 x 5 folds; advance rule in ARMS_DESIGN.md.
 - NEXT: user commits + pushes; notebook 03 result must be pushed before 04/05 (they compare against it); approval to spend GPU on 04 then 05.
+
+## Update 2026-11-18 (notebooks 03, 04, 05 done) - see docs/RESULTS_ARMS_PILOT.md
+- Arm 1 complete: 15 runs, 5 folds x 3 seeds, mAP50-95 0.2170 (macro 0.2663), seed sd of the fold mean 0.0056. Results in results/baseline_fixed/.
+- Pilot (seed 42, 5 folds, paired by fold): cbraw +0.0025, cbgroup -0.0096, fapre_generic -0.0211, fajoint_generic +0.0157 (4/5 folds, localisation recall +0.052; class-specific heads only +0.039). Only arm 7' meets the advance rule; its interval still includes 0 (t about 1.4).
+- Results folders renamed to results/baseline_fixed, results/arms_cb, results/arms_fa_generic; compare_arms re-run locally on 5 folds -> results/arms/*_vs_baseline.*.
+- Open confounds for arm 7': 1.77x training steps (control = notebook 06, baseline 177 epochs), single seed (notebook 07 = seeds 43/44), scale mismatch (notebook 05 VARIANT zoom, RUN_PRE False).
+- NEXT: user pushes results + notebooks 05-07; runs 06 and 07 (and 05 zoom).
