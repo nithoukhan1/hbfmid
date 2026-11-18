@@ -1,0 +1,16 @@
+train: /kaggle/working/results/arm7_seeds/clean_f1_yolov8s_s44_fx_fajoint_generic/lists/train.txt
+val: /kaggle/working/results/arm7_seeds/clean_f1_yolov8s_s44_fx_fajoint_generic/lists/val.txt
+test: /kaggle/working/results/arm7_seeds/clean_f1_yolov8s_s44_fx_fajoint_generic/lists/test.txt
+nc: 11
+names:
+  0: Comminuted
+  1: Greenstick
+  2: Healthy
+  3: Linear
+  4: Oblique Displaced
+  5: Oblique
+  6: Segmental
+  7: Spiral
+  8: Transverse Displaced
+  9: Transverse
+  10: FracAtlas fracture

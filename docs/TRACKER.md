@@ -88,3 +88,10 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Results folders renamed to results/baseline_fixed, results/arms_cb, results/arms_fa_generic; compare_arms re-run locally on 5 folds -> results/arms/*_vs_baseline.*.
 - Open confounds for arm 7': 1.77x training steps (control = notebook 06, baseline 177 epochs), single seed (notebook 07 = seeds 43/44), scale mismatch (notebook 05 VARIANT zoom, RUN_PRE False).
 - NEXT: user pushes results + notebooks 05-07; runs 06 and 07 (and 05 zoom).
+
+## Update 2026-11-18 (Gate C read) - see docs/RESULTS_GATE_C.md
+- Notebooks 06 (baseline 177 epochs), 07 (arm 7' seeds 43/44), 05-zoom (arms 6 and 7', seed 42) done. Result folders renamed to results/ctrl_ep177, results/arm7_seeds, results/arms_fa_zoom; comparisons copied to results/arms/.
+- Arm 7' generic by seed: +1.57 (s42), -1.05 (s43), +0.50 (s44) pts; 3-seed mean +0.34 pt (3/5 folds). The pilot gain was seed noise. Compute control (177 epochs) -0.2 pt. Zoom: no effect. Class weights and pre-training: no effect or negative.
+- GATE C FAILS (mAP50-95). Joint training raises localisation recall by 2-3 pts in most folds (exploratory, CI includes 0 for 3 seeds). Branch taken: benchmark + audit + analysis paper (Q3-Q4), FracAtlas/class-weight results reported as negative findings.
+- New: scripts/evaluation/aggregate_benchmark.py (official vs clean table per detector), notebooks/kaggle/08_benchmark_detectors.ipynb (PART A: YOLO11s 3 seeds, 18 runs; PART B: YOLOv8m seed 42 + YOLOv8s official seeds 42-44).
+- NEXT: user pushes results + notebook 08, runs PART A and B; then RT-DETR/DEIMv2 row, per-class/modality analysis, label-inconsistent group inspection, manuscript outline.
