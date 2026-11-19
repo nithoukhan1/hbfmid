@@ -106,3 +106,9 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Pushed benchmark (0e24b1e). New: scripts/evaluation/miss_analysis.py, results/analysis/*.
 - Misses are not explained by box size (flat to U-shaped; median area found 2.2% vs never found 1.9%), so a resolution/P2 experiment is deprioritised. 47% of boxes are found by all 7 runs, 29% by some (noise), 24% by none (hard core). Class is right 91-93% when localised.
 - Correction: the audit already contains a threshold sensitivity (thr 12..40: test images with a train copy 54/64 .. 44/64; groups 244 .. 518). Group count depends on the threshold; the leakage conclusion does not. Missing: manual review of a sample of matched pairs.
+
+## Update 2026-11-19 (method-track literature check; notebook 09) - see docs/LITERATURE_METHOD_TRACK.md
+- Literature (web only): modality-conditioned mixed-modality detection exists (Align Your Query, arXiv 2510.02789, DETR + modality tokens); modality-specific normalisation exists in unpaired multimodal segmentation. Application to HBFMID not found, but it would be application novelty only. Candidates M1-M4 recorded; no method chosen yet.
+- Decision on the leakage question: report the official split for comparability, state the leakage, make HBFMID-Clean the headline protocol; any method claim needs the pre-registered gate (paired >= +0.9 pt mAP50-95, >= 4/5 folds, not worse on official) on Clean.
+- New: scripts/training/run_baseline.py can train RT-DETR (load_model(), --no-amp; YOLO behaviour unchanged, amp default stays True); notebooks/kaggle/09_benchmark_rtdetr.ipynb (PART A rtdetr-l seed 42 official + 5 clean folds; PART B seeds 43/44; SMOKE switch). Not yet run; RF-DETR/DEIMv2 deferred (needs a COCO-format pipeline and a common mAP evaluator).
+- NEXT: user pushes; run 09 with SMOKE=True, then PART A; conference-paper steps 1-3 (audit pair review, MRI count 86 vs 131, never-found boxes) in parallel.

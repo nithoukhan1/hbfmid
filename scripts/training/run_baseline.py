@@ -31,6 +31,15 @@ from training.class_weights import weights_from_counts, counts_raw, counts_group
 from evaluation.confusion import load_gt, build_confusion, error_stats, matrix_to_csv  # noqa: E402
 
 
+def load_model(weights):
+    """YOLO for yolo*.pt; Ultralytics' RTDETR class for rtdetr*.pt (YOLO('rtdetr-l.pt') does NOT route to RT-DETR)."""
+    if 'rtdetr' in Path(str(weights)).stem.lower():
+        from ultralytics import RTDETR
+        return RTDETR(str(weights))
+    from ultralytics import YOLO
+    return YOLO(str(weights))
+
+
 def read_list(p):
     return [l.strip() for l in Path(p).read_text().splitlines() if l.strip()]
 
@@ -108,6 +117,7 @@ def main():
     ap.add_argument('--extra-train', nargs='*', default=[], help='txt lists of absolute image paths appended to train')
     ap.add_argument('--extra-names', nargs='*', default=[], help='names of the extra head classes (ids NC, NC+1, ...)')
     ap.add_argument('--arm', default='')
+    ap.add_argument('--no-amp', action='store_true', help='train in fp32 (RT-DETR can give NaN losses under AMP)')
     ap.add_argument('--keep-weights', action='store_true')
     ap.add_argument('--allow-writable-data', action='store_true')
     ap.add_argument('--dry-run', action='store_true', help='write lists/yaml and exit (no ultralytics)')
@@ -157,7 +167,6 @@ def main():
 
     import torch
     import ultralytics
-    from ultralytics import YOLO
 
     t0 = time.time()
     cls_w = cls_counts = None
@@ -166,15 +175,16 @@ def main():
                       else counts_group(a.fold, a.splits_dir, NC))
         cls_w = weights_from_counts(cls_counts, a.cls_pw)
         print(f'[{tag}] class counts ({a.cls_weight}): {cls_counts.tolist()}  weights: {[round(float(x), 3) for x in cls_w]}')
-    model = YOLO(a.init_weights or a.model)
+    assert not (cls_w is not None and 'rtdetr' in stem.lower()), 'class weights are not supported for RT-DETR (its loss ignores them)'
+    model = load_model(a.init_weights or a.model)
     if cls_w is not None:
         install_callback(model, cls_w)
     model.train(data=str(yaml_main), epochs=a.epochs, patience=(a.epochs if a.fixed_epochs else a.patience), imgsz=a.imgsz, batch=a.batch,
                 seed=a.seed, deterministic=True, workers=a.workers, device=a.device,
-                project=str(run), name='train', exist_ok=True, plots=False)
+                project=str(run), name='train', exist_ok=True, plots=False, amp=(not a.no_amp))
     train_s = time.time() - t0
     wdir = run / 'train' / 'weights'
-    model = YOLO(str(wdir / ('last.pt' if a.fixed_epochs else 'best.pt')))
+    model = load_model(wdir / ('last.pt' if a.fixed_epochs else 'best.pt'))
 
     def run_val(yaml_path, split, name, m=None):
         return extract((m or model).val(data=str(yaml_path), split=split, imgsz=a.imgsz, batch=a.batch, conf=0.001,
@@ -184,7 +194,7 @@ def main():
     res = {'tag': tag, 'arm': a.arm or 'baseline', 'mode': a.mode, 'fold': a.fold if a.mode == 'clean' else None, 'model': a.model,
            'seed': a.seed, 'epochs_cfg': a.epochs, 'patience': (a.epochs if a.fixed_epochs else a.patience),
            'protocol': 'fixed_last' if a.fixed_epochs else 'earlystop_best', 'imgsz': a.imgsz, 'batch': a.batch,
-           'cls_weight': a.cls_weight, 'cls_pw': a.cls_pw,
+           'cls_weight': a.cls_weight, 'cls_pw': a.cls_pw, 'amp': (not a.no_amp),
            'cls_counts': None if cls_counts is None else cls_counts.tolist(),
            'cls_weights': None if cls_w is None else [round(float(x), 4) for x in cls_w],
            'init_weights': a.init_weights, 'extra_train': a.extra_train, 'extra_names': a.extra_names,
@@ -205,7 +215,7 @@ def main():
     for name, y in probe_yaml.items():
         res['probe_' + name] = run_val(y, 'test', 'probe_' + name)
     if a.fixed_epochs:   # secondary: validation-selected checkpoint, to compare noise
-        mb = YOLO(str(wdir / 'best.pt'))
+        mb = load_model(wdir / 'best.pt')
         res['val_best'] = run_val(yaml_main, 'val', 'valbest_val', mb)
         res['test_best'] = run_val(yaml_main, 'test', 'valbest_test', mb)
 
