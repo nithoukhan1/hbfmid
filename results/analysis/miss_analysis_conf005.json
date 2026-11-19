@@ -1,0 +1,312 @@
+{
+ "thr": 0.05,
+ "n_rows": 3199,
+ "models": [
+  "yolo11s.pt",
+  "yolov8m.pt",
+  "yolov8s.pt"
+ ],
+ "by_size": {
+  "yolo11s.pt|<1%": {
+   "n": 213,
+   "miss": 0.352,
+   "cls_acc": 0.573
+  },
+  "yolo11s.pt|1-2%": {
+   "n": 492,
+   "miss": 0.36,
+   "cls_acc": 0.579
+  },
+  "yolo11s.pt|2-5%": {
+   "n": 483,
+   "miss": 0.271,
+   "cls_acc": 0.631
+  },
+  "yolo11s.pt|5-15%": {
+   "n": 120,
+   "miss": 0.35,
+   "cls_acc": 0.633
+  },
+  "yolo11s.pt|>=15%": {
+   "n": 63,
+   "miss": 0.381,
+   "cls_acc": 0.619
+  },
+  "yolov8m.pt|<1%": {
+   "n": 71,
+   "miss": 0.394,
+   "cls_acc": 0.521
+  },
+  "yolov8m.pt|1-2%": {
+   "n": 164,
+   "miss": 0.335,
+   "cls_acc": 0.598
+  },
+  "yolov8m.pt|2-5%": {
+   "n": 161,
+   "miss": 0.286,
+   "cls_acc": 0.621
+  },
+  "yolov8m.pt|5-15%": {
+   "n": 40,
+   "miss": 0.325,
+   "cls_acc": 0.6
+  },
+  "yolov8m.pt|>=15%": {
+   "n": 21,
+   "miss": 0.476,
+   "cls_acc": 0.524
+  },
+  "yolov8s.pt|<1%": {
+   "n": 213,
+   "miss": 0.371,
+   "cls_acc": 0.577
+  },
+  "yolov8s.pt|1-2%": {
+   "n": 492,
+   "miss": 0.374,
+   "cls_acc": 0.575
+  },
+  "yolov8s.pt|2-5%": {
+   "n": 483,
+   "miss": 0.29,
+   "cls_acc": 0.611
+  },
+  "yolov8s.pt|5-15%": {
+   "n": 120,
+   "miss": 0.375,
+   "cls_acc": 0.617
+  },
+  "yolov8s.pt|>=15%": {
+   "n": 63,
+   "miss": 0.429,
+   "cls_acc": 0.571
+  }
+ },
+ "by_mod": {
+  "yolo11s.pt|MRI": {
+   "n": 186,
+   "miss": 0.403,
+   "cls_acc": 0.554
+  },
+  "yolo11s.pt|XR": {
+   "n": 1185,
+   "miss": 0.316,
+   "cls_acc": 0.611
+  },
+  "yolov8m.pt|MRI": {
+   "n": 62,
+   "miss": 0.452,
+   "cls_acc": 0.532
+  },
+  "yolov8m.pt|XR": {
+   "n": 395,
+   "miss": 0.314,
+   "cls_acc": 0.6
+  },
+  "yolov8s.pt|MRI": {
+   "n": 186,
+   "miss": 0.43,
+   "cls_acc": 0.522
+  },
+  "yolov8s.pt|XR": {
+   "n": 1185,
+   "miss": 0.333,
+   "cls_acc": 0.603
+  }
+ },
+ "by_cls_name": {
+  "yolo11s.pt|Comminuted": {
+   "n": 114,
+   "miss": 0.447,
+   "cls_acc": 0.439
+  },
+  "yolo11s.pt|Greenstick": {
+   "n": 129,
+   "miss": 0.202,
+   "cls_acc": 0.721
+  },
+  "yolo11s.pt|Healthy": {
+   "n": 36,
+   "miss": 0.583,
+   "cls_acc": 0.417
+  },
+  "yolo11s.pt|Linear": {
+   "n": 15,
+   "miss": 0.8,
+   "cls_acc": 0.0
+  },
+  "yolo11s.pt|Oblique": {
+   "n": 30,
+   "miss": 0.5,
+   "cls_acc": 0.267
+  },
+  "yolo11s.pt|Oblique Displaced": {
+   "n": 321,
+   "miss": 0.333,
+   "cls_acc": 0.629
+  },
+  "yolo11s.pt|Segmental": {
+   "n": 12,
+   "miss": 0.833,
+   "cls_acc": 0.0
+  },
+  "yolo11s.pt|Spiral": {
+   "n": 66,
+   "miss": 0.424,
+   "cls_acc": 0.545
+  },
+  "yolo11s.pt|Transverse": {
+   "n": 105,
+   "miss": 0.314,
+   "cls_acc": 0.524
+  },
+  "yolo11s.pt|Transverse Displaced": {
+   "n": 543,
+   "miss": 0.269,
+   "cls_acc": 0.678
+  },
+  "yolov8m.pt|Comminuted": {
+   "n": 38,
+   "miss": 0.421,
+   "cls_acc": 0.447
+  },
+  "yolov8m.pt|Greenstick": {
+   "n": 43,
+   "miss": 0.163,
+   "cls_acc": 0.744
+  },
+  "yolov8m.pt|Healthy": {
+   "n": 12,
+   "miss": 0.667,
+   "cls_acc": 0.333
+  },
+  "yolov8m.pt|Linear": {
+   "n": 5,
+   "miss": 1.0,
+   "cls_acc": 0.0
+  },
+  "yolov8m.pt|Oblique": {
+   "n": 10,
+   "miss": 0.4,
+   "cls_acc": 0.2
+  },
+  "yolov8m.pt|Oblique Displaced": {
+   "n": 107,
+   "miss": 0.355,
+   "cls_acc": 0.607
+  },
+  "yolov8m.pt|Segmental": {
+   "n": 4,
+   "miss": 0.5,
+   "cls_acc": 0.0
+  },
+  "yolov8m.pt|Spiral": {
+   "n": 22,
+   "miss": 0.5,
+   "cls_acc": 0.5
+  },
+  "yolov8m.pt|Transverse": {
+   "n": 35,
+   "miss": 0.257,
+   "cls_acc": 0.571
+  },
+  "yolov8m.pt|Transverse Displaced": {
+   "n": 181,
+   "miss": 0.287,
+   "cls_acc": 0.657
+  },
+  "yolov8s.pt|Comminuted": {
+   "n": 114,
+   "miss": 0.474,
+   "cls_acc": 0.439
+  },
+  "yolov8s.pt|Greenstick": {
+   "n": 129,
+   "miss": 0.233,
+   "cls_acc": 0.698
+  },
+  "yolov8s.pt|Healthy": {
+   "n": 36,
+   "miss": 0.667,
+   "cls_acc": 0.333
+  },
+  "yolov8s.pt|Linear": {
+   "n": 15,
+   "miss": 0.8,
+   "cls_acc": 0.0
+  },
+  "yolov8s.pt|Oblique": {
+   "n": 30,
+   "miss": 0.533,
+   "cls_acc": 0.233
+  },
+  "yolov8s.pt|Oblique Displaced": {
+   "n": 321,
+   "miss": 0.336,
+   "cls_acc": 0.62
+  },
+  "yolov8s.pt|Segmental": {
+   "n": 12,
+   "miss": 0.667,
+   "cls_acc": 0.0
+  },
+  "yolov8s.pt|Spiral": {
+   "n": 66,
+   "miss": 0.455,
+   "cls_acc": 0.545
+  },
+  "yolov8s.pt|Transverse": {
+   "n": 105,
+   "miss": 0.305,
+   "cls_acc": 0.514
+  },
+  "yolov8s.pt|Transverse Displaced": {
+   "n": 543,
+   "miss": 0.297,
+   "cls_acc": 0.669
+  }
+ },
+ "unique_boxes": 457,
+ "never_found": 92,
+ "always_found": 239,
+ "mixed": 126,
+ "never_found_by_size": {
+  "<1%": 12,
+  "1-2%": 41,
+  "2-5%": 24,
+  "5-15%": 8,
+  ">=15%": 7
+ },
+ "unique_by_size": {
+  "<1%": 71,
+  "1-2%": 164,
+  "2-5%": 161,
+  "5-15%": 40,
+  ">=15%": 21
+ },
+ "never_found_by_class": {
+  "Transverse Displaced": 27,
+  "Oblique Displaced": 22,
+  "Spiral": 9,
+  "Comminuted": 9,
+  "Healthy": 6,
+  "Transverse": 5,
+  "Greenstick": 5,
+  "Linear": 4,
+  "Oblique": 3,
+  "Segmental": 2
+ },
+ "never_found_by_mod": {
+  "XR": 77,
+  "MRI": 15
+ },
+ "unique_by_mod": {
+  "XR": 395,
+  "MRI": 62
+ },
+ "median_area_found_vs_never": {
+  "always_found": 0.02041015624999999,
+  "never_found": 0.017799108867277084
+ }
+}

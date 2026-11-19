@@ -101,3 +101,8 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Official mAP50-95: YOLOv8s 0.494, YOLO11s 0.485, YOLOv8m 0.472. Clean: 0.217, 0.2225, 0.227. Official/clean = 2.1-2.3 for all three. Orders reverse between protocols; no clean difference is significant (11s-8s +0.54 +/-1.83 pts, 8m-8s +1.20 +/-2.21 pts, seed 42 only).
 - Official seed range for one detector (YOLO11s 3.4 pts) is larger than the gaps between detectors. Misses = 38-39% of boxes on clean vs 10-14% on official for all three; wrong class about 5% on clean.
 - NEXT: git add/commit/push results/bench_A results/bench_B results/benchmark_all.* docs; audit validation (manual pair review + threshold sensitivity, no GPU); RT-DETR/DEIMv2 row; per-class and modality tables; optional audit on FracAtlas.
+
+## Update 2026-11-19 (miss analysis; push 0e24b1e confirmed) - see docs/RESULTS_MISS_ANALYSIS.md
+- Pushed benchmark (0e24b1e). New: scripts/evaluation/miss_analysis.py, results/analysis/*.
+- Misses are not explained by box size (flat to U-shaped; median area found 2.2% vs never found 1.9%), so a resolution/P2 experiment is deprioritised. 47% of boxes are found by all 7 runs, 29% by some (noise), 24% by none (hard core). Class is right 91-93% when localised.
+- Correction: the audit already contains a threshold sensitivity (thr 12..40: test images with a train copy 54/64 .. 44/64; groups 244 .. 518). Group count depends on the threshold; the leakage conclusion does not. Missing: manual review of a sample of matched pairs.
