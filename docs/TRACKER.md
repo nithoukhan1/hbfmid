@@ -95,3 +95,9 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - GATE C FAILS (mAP50-95). Joint training raises localisation recall by 2-3 pts in most folds (exploratory, CI includes 0 for 3 seeds). Branch taken: benchmark + audit + analysis paper (Q3-Q4), FracAtlas/class-weight results reported as negative findings.
 - New: scripts/evaluation/aggregate_benchmark.py (official vs clean table per detector), notebooks/kaggle/08_benchmark_detectors.ipynb (PART A: YOLO11s 3 seeds, 18 runs; PART B: YOLOv8m seed 42 + YOLOv8s official seeds 42-44).
 - NEXT: user pushes results + notebook 08, runs PART A and B; then RT-DETR/DEIMv2 row, per-class/modality analysis, label-inconsistent group inspection, manuscript outline.
+
+## Update 2026-11-19 (notebook 08 done) - see docs/RESULTS_BENCHMARK.md
+- Part A (YOLO11s: 15 clean + 3 official runs) and Part B (YOLOv8m seed 42 on both protocols; YOLOv8s official seeds 42-44) finished, no failed runs. Folders results/bench_A, results/bench_B; merged table results/benchmark_all.{md,json}.
+- Official mAP50-95: YOLOv8s 0.494, YOLO11s 0.485, YOLOv8m 0.472. Clean: 0.217, 0.2225, 0.227. Official/clean = 2.1-2.3 for all three. Orders reverse between protocols; no clean difference is significant (11s-8s +0.54 +/-1.83 pts, 8m-8s +1.20 +/-2.21 pts, seed 42 only).
+- Official seed range for one detector (YOLO11s 3.4 pts) is larger than the gaps between detectors. Misses = 38-39% of boxes on clean vs 10-14% on official for all three; wrong class about 5% on clean.
+- NEXT: git add/commit/push results/bench_A results/bench_B results/benchmark_all.* docs; audit validation (manual pair review + threshold sensitivity, no GPU); RT-DETR/DEIMv2 row; per-class and modality tables; optional audit on FracAtlas.
