@@ -137,3 +137,8 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - v2 groups: 282 (NCC>=0.95) vs 388; about 29 duplicate groups straddle the v1 clean folds (residual leakage, limited). Candidate folds in data_splits_v2/clean5 (not used for training yet). See docs/RESULTS_GROUPING_V2.md.
 - NEXT: validate 0.90-0.95 band sample, decide benchmark re-run on v2 folds, paper option A/B/C.
 - 2026-11-21 pushed b855a84 (grouping v2 + candidate folds). Band check 0.90-0.95: 4/18 real duplicates (CI 0.09-0.45) -> keep 0.95; residual tail possible. Awaiting decision: re-run benchmark on v2 folds or report v2 as sensitivity.
+
+## 2026-11-21 Notebook 10 prepared (clean benchmark on grouping v2 folds)
+- notebooks/kaggle/10_clean_v2_yolo.ipynb: PART A = YOLO11s, PART B = YOLOv8s, 5 clean folds each, seed 42, fixed protocol, splits-dir data_splits_v2 (pushed in b855a84). Dry run on v2 fold 0 OK (897/57/58 images). Official split not repeated.
+- scripts/evaluation/compare_v1_v2.py: per-fold and mean v1 vs v2 (seed 42) and the YOLO11s-YOLOv8s gap per protocol. v1 seed-42 means: YOLO11s 0.2260, YOLOv8s 0.2151 (gap +0.0109 +/- 0.0268, 4/5 folds).
+- Status: prepared, NOT run. Run SMOKE=True first, then PART A and B as two Save Versions.
