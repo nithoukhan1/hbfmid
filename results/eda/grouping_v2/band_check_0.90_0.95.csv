@@ -1,0 +1,19 @@
+qid,a,b,ncc,split_pair,label_claude,note
+Q01,train/69_jpg.rf.5f7b005b325ce8f23dfa7b620429ed2e.jpg,train/69_jpg.rf.c46eba36c16e22ccce115b6e4d66e0ec.jpg,0.931,train-train,different,"same pose, different markers/bone crossing"
+Q02,train/126_jpg.rf.50c04bd123c7efe42612696613033d84.jpg,valid/17_jpg.rf.17bf46d2f6321a12ec914c9a40155d85.jpg,0.904,train-valid,different,
+Q03,train/33_jpg.rf.3137ef984ffc89395501f3623ac06d26.jpg,train/69_jpg.rf.98b55890905c6d0ad748657624071d92.jpg,0.938,train-train,different,"same pose, different patient"
+Q04,train/17_jpg.rf.ef26769ebe7d6c1920c0febfdbb315cf.jpg,test/126_jpg.rf.3d8c5097b435e82708ce7e8426d0766d.jpg,0.922,train-test,different,
+Q05,train/91_jpg.rf.96afa50c5f99696396c4e0a6872f80fb.jpg,train/97_jpg.rf.b33d72c126e04007874dffef157d4f72.jpg,0.903,train-train,different,
+Q06,train/33_jpg.rf.3137ef984ffc89395501f3623ac06d26.jpg,train/69_jpg.rf.5f7b005b325ce8f23dfa7b620429ed2e.jpg,0.914,train-train,different,
+Q07,train/17_jpg.rf.ef26769ebe7d6c1920c0febfdbb315cf.jpg,train/195_jpg.rf.127d789ef9b9e10530b6af065caab5aa.jpg,0.923,train-train,different,
+Q08,train/13_jpg.rf.6f164c23bd25e785505eb22bacb028ed.jpg,train/17_jpg.rf.ef26769ebe7d6c1920c0febfdbb315cf.jpg,0.909,train-train,different,
+Q09,train/33_jpg.rf.8733a8982f90ee1da414a74262d39e14.jpg,train/69_jpg.rf.2719c75f64f1281b6d2fde87672137b5.jpg,0.935,train-train,different,
+Q10,train/33_jpg.rf.8733a8982f90ee1da414a74262d39e14.jpg,train/69_jpg.rf.98b55890905c6d0ad748657624071d92.jpg,0.938,train-train,different,
+Q11,train/38_jpg.rf.1bfb3ac0dd9e6514dc76393ba26519be.jpg,train/38_jpg.rf.829623fc730eec65cd04be3ea29bd7aa.jpg,0.931,train-train,same_image,
+Q12,train/30_jpg.rf.6037618abd2ee7a298664b1b38655c4a.jpg,train/30_jpg.rf.d09c39cf0ec12058f11764542063004c.jpg,0.921,train-train,same_image,
+Q13,train/126_jpg.rf.2c729020729c126d8cb4c2d0405b48ec.jpg,train/17_jpg.rf.5e0849057b6c66f2850bcde81ff13b7c.jpg,0.915,train-train,different,
+Q14,train/195_jpg.rf.c66122e50ffbda840fd445edfd9f3594.jpg,test/126_jpg.rf.3d8c5097b435e82708ce7e8426d0766d.jpg,0.920,train-test,different,
+Q15,train/29_jpg.rf.52bb48709c93baa38b94216e031f4890.jpg,train/29_jpg.rf.a603cf60451034d821f033878b4d5385.jpg,0.917,train-train,same_image,"thumb lateral, rotated+flipped copy; moderate confidence"
+Q16,train/91_jpg.rf.9d185d193721610e062d692eba8d080a.jpg,train/97_jpg.rf.6fa1275bfbe9a10964859947ff34aa27.jpg,0.902,train-train,different,
+Q17,train/142_jpg.rf.2a8059b8f840dcd21d497dfd4b529459.jpg,train/142_jpg.rf.bee67b10115001348ccc4b35c86413c7.jpg,0.939,train-train,same_image,
+Q18,train/126_jpg.rf.3165d7aba0b17eb015200e21a7a3805d.jpg,train/13_jpg.rf.f9b17e68f85b2a0e3338b6c2e46bd4b6.jpg,0.927,train-train,different,

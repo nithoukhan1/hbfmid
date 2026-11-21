@@ -16,3 +16,8 @@ Reading:
 - Dihedral rot90 modes added no pairs over the earlier 4-flip scan.
 
 Open: validate a sample of the 0.90-0.95 band by eye; decide whether to re-run the benchmark on v2 folds (about 20 runs for 4 detectors x 5 folds x 1 seed, roughly 30-35 T4-hours at 91-108 min per run).
+
+## Band check 0.90 <= NCC < 0.95 (added 2026-11-21, AI-assisted visual review, 18 random pairs, seed 20261123)
+`scripts/eda/band_check.py`; labels `results/eda/grouping_v2/band_check_0.90_0.95.csv`. The band holds 368 unlinked pairs.
+Result: 4/18 same image (Q11, Q12, Q15, Q17), 14/18 different; Wilson 95% for the duplicate share 0.09-0.45. Most false matches are standardised radiographs of other patients in the same pose (ankle AP, forearm lateral, tibia AP).
+Reading: linking the whole band (threshold 0.90, 254 groups) would over-merge about 78% of its pairs; threshold 0.95 stays the primary choice. A tail of roughly 80 real duplicate pairs (0.22 x 368, wide interval) is likely still unlinked, so residual leakage in v2 folds is not zero. A tiered rule for the band (e.g. SIFT with a lower inlier threshold on marker-masked images) would be grouping v3; not built.

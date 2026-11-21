@@ -136,3 +136,4 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Pushed 00d054d (audit validation, RT-DETR results, thumbnail scan).
 - v2 groups: 282 (NCC>=0.95) vs 388; about 29 duplicate groups straddle the v1 clean folds (residual leakage, limited). Candidate folds in data_splits_v2/clean5 (not used for training yet). See docs/RESULTS_GROUPING_V2.md.
 - NEXT: validate 0.90-0.95 band sample, decide benchmark re-run on v2 folds, paper option A/B/C.
+- 2026-11-21 pushed b855a84 (grouping v2 + candidate folds). Band check 0.90-0.95: 4/18 real duplicates (CI 0.09-0.45) -> keep 0.95; residual tail possible. Awaiting decision: re-run benchmark on v2 folds or report v2 as sensitivity.
