@@ -131,3 +131,8 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Rules 3, 4, 5 triggered: false links via overlay markers (train-train only); below-threshold and rotated/cropped duplicates missed (R_below 9/16, N_hard 8/8) -> leakage is a lower bound and HBFMID-Clean still contains cross-fold duplicates.
 - Thumbnail scan: 206 unlinked pairs with NCC>=0.95 (test 4/64, valid 7/128 with an unlinked train partner).
 - NEXT: grouping v2 (dihedral thumbnail/embedding + marker-masked SIFT), recompute folds, human spot-check, then decide benchmark re-run and paper option (A/B/C). See docs/RESULTS_AUDIT_VALIDATION.md.
+
+## 2026-11-21 Grouping v2 analysis (no re-run yet)
+- Pushed 00d054d (audit validation, RT-DETR results, thumbnail scan).
+- v2 groups: 282 (NCC>=0.95) vs 388; about 29 duplicate groups straddle the v1 clean folds (residual leakage, limited). Candidate folds in data_splits_v2/clean5 (not used for training yet). See docs/RESULTS_GROUPING_V2.md.
+- NEXT: validate 0.90-0.95 band sample, decide benchmark re-run on v2 folds, paper option A/B/C.

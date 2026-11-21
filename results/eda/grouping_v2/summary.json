@@ -1,0 +1,25 @@
+{
+ "n_images": 1539,
+ "v1_groups": 388,
+ "ncc>=0.90": {
+  "unlinked_pairs": 574,
+  "v2_groups": 254,
+  "pairs_in_different_v1_test_folds": 443,
+  "v2_groups_spanning_multiple_v1_folds": 34,
+  "official_test_images_with_NEW_train_link": 9
+ },
+ "ncc>=0.95": {
+  "unlinked_pairs": 206,
+  "v2_groups": 282,
+  "pairs_in_different_v1_test_folds": 158,
+  "v2_groups_spanning_multiple_v1_folds": 29,
+  "official_test_images_with_NEW_train_link": 4
+ },
+ "ncc>=0.97": {
+  "unlinked_pairs": 129,
+  "v2_groups": 307,
+  "pairs_in_different_v1_test_folds": 102,
+  "v2_groups_spanning_multiple_v1_folds": 27,
+  "official_test_images_with_NEW_train_link": 4
+ }
+}
