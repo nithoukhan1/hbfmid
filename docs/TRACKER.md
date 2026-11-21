@@ -112,3 +112,22 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Decision on the leakage question: report the official split for comparability, state the leakage, make HBFMID-Clean the headline protocol; any method claim needs the pre-registered gate (paired >= +0.9 pt mAP50-95, >= 4/5 folds, not worse on official) on Clean.
 - New: scripts/training/run_baseline.py can train RT-DETR (load_model(), --no-amp; YOLO behaviour unchanged, amp default stays True); notebooks/kaggle/09_benchmark_rtdetr.ipynb (PART A rtdetr-l seed 42 official + 5 clean folds; PART B seeds 43/44; SMOKE switch). Not yet run; RF-DETR/DEIMv2 deferred (needs a COCO-format pipeline and a common mAP evaluator).
 - NEXT: user pushes; run 09 with SMOKE=True, then PART A; conference-paper steps 1-3 (audit pair review, MRI count 86 vs 131, never-found boxes) in parallel.
+
+## Update 2026-11-20 (notebook 09 done: RT-DETR-L, 18 runs) - see docs/RESULTS_RTDETR.md
+- Parts A (seed 42) and B (seeds 43, 44) finished, no crashed runs. Official 0.4913 (sd 0.0126) = YOLO. Clean: 0.1814 as measured, 0.2120 without the 2 broken runs, 0.2023 best.pt; vs YOLO11s 0.2225 -> no view shows a gain (healthy-only -1.05 +/- 0.69 pts, 0/5 folds).
+- 2 of 15 clean runs gave an unusable last.pt (fp32 test mAP 0.0000, train loss normal, validation NaN from epoch 16 / 68; probable EMA contamination); a third had fp16-only NaN validation. Reported as failures, not dropped. Cause not isolated.
+- Folders renamed to results/rtdetr_A, results/rtdetr_B (smoke zip kept, git-ignored). Merged table results/benchmark_all.* regenerated with the RT-DETR row.
+- Not tested: foundation-backbone detector (RF-DETR/DINOv2). Method-track gate (docs/LITERATURE_METHOD_TRACK.md) unchanged: build M3 only if such a detector gains >= 0.9 pt on Clean.
+- NEXT: user pushes; decide RF-DETR (time-boxed) vs closing the method track; conference steps 1-3 (audit pair review, MRI 86 vs 131, never-found boxes).
+
+## Update 2026-11-21 (audit validation prepared) - see docs/AUDIT_VALIDATION_PLAN.md
+- Option C chosen provisionally: finish audit validation first, then decide evaluation paper vs evaluation + one gated method experiment (RF-DETR, group-aware training).
+- New: scripts/eda/audit_validation.py (build/score), results/eda/audit_validation/{review.html (git-ignored, embeds images), review_key.csv, auto_checks.json}. Decision rules written before labels.
+- Automatic checks: 109/113 clean 3-copy augmentation sets fully grouped (95.9% of pairs direct >= 25), so errors lean toward missed duplicates; 47/48 leaked test images have a direct link >= 25, 1 via a strong chain (232 / 289 inliers).
+- NEXT: user reviews 66 pairs in review.html (about 25 min), saves review_results.csv into results/eda/audit_validation/, then Claude runs score and applies the decision rules.
+
+## 2026-11-21 Audit validation results (AI-assisted review, 66 pairs)
+- Headline 48/64 test images with a train copy: validated (T_weakest 12/12, C_chain 2/2, controls 4/4).
+- Rules 3, 4, 5 triggered: false links via overlay markers (train-train only); below-threshold and rotated/cropped duplicates missed (R_below 9/16, N_hard 8/8) -> leakage is a lower bound and HBFMID-Clean still contains cross-fold duplicates.
+- Thumbnail scan: 206 unlinked pairs with NCC>=0.95 (test 4/64, valid 7/128 with an unlinked train partner).
+- NEXT: grouping v2 (dihedral thumbnail/embedding + marker-masked SIFT), recompute folds, human spot-check, then decide benchmark re-run and paper option (A/B/C). See docs/RESULTS_AUDIT_VALIDATION.md.

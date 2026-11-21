@@ -1,0 +1,24 @@
+{
+ "n_images": 1539,
+ "ncc>=0.9": {
+  "unlinked_pairs": 574,
+  "test_images_with_unlinked_train_partner": 9,
+  "valid_images_with_unlinked_train_partner": 16,
+  "n_test": 64,
+  "n_valid": 128
+ },
+ "ncc>=0.95": {
+  "unlinked_pairs": 206,
+  "test_images_with_unlinked_train_partner": 4,
+  "valid_images_with_unlinked_train_partner": 7,
+  "n_test": 64,
+  "n_valid": 128
+ },
+ "ncc>=0.97": {
+  "unlinked_pairs": 129,
+  "test_images_with_unlinked_train_partner": 4,
+  "valid_images_with_unlinked_train_partner": 4,
+  "n_test": 64,
+  "n_valid": 128
+ }
+}

@@ -13,3 +13,6 @@ __pycache__/
 
 # cross-dataset audit figure (contains dataset images; kept local)
 results/eda/figures/cross_top_pairs.jpg
+
+# audit review page embeds dataset images (regenerable: scripts/eda/audit_validation.py build, fixed seed)
+results/eda/audit_validation/review.html

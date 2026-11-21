@@ -1,0 +1,67 @@
+pair_id,label,note
+P001,same_image,femur shaft fracture; B is zoomed-out/rotated copy
+P002,same_image,hip MRI with blue arrow; A is a crop
+P003,different,different hands (A has marker 7)
+P004,same_image,hand; B mirrored matches A; moderate confidence
+P005,same_image,thumb lateral view identical
+P006,same_image,metacarpals identical; B has B-marker
+P007,same_image,metacarpals; same fracture line
+P008,different,A is shoulder/humerus x-ray; B lumbar MRI
+P009,same_image,ankle MRI orange arrow; heavy augmentation; moderate confidence
+P010,same_image,A is a zoomed crop of B (same fracture marks)
+P011,same_patient,different projection (lateral vs AP) with same E marker
+P012,same_image,forearm rotated frame; same fracture
+P013,same_image,lumbar sagittal MRI; A zoomed crop
+P014,different,different forearms and markers
+P015,same_image,metacarpal family with small fracture dash; moderate confidence
+P016,same_image,5th metacarpal fracture; shifted copy
+P017,same_image,child wrist; rotated 180 + flip; moderate confidence
+P018,different,different wrist/forearm; both carry BM sticker
+P019,same_image,identical hand with arrow
+P020,same_image,identical hand with R marker
+P021,unsure,hand with L tag vs sharper hand; cannot tell
+P022,same_image,thumb lateral rotated 180 + flip; moderate confidence
+P023,same_image,hip fracture identical
+P024,different,R vs L markers; similar studio setup only
+P025,same_image,tibia/ankle with R marker
+P026,same_image,ankle MRI orange arrow; heavy augmentation; moderate confidence
+P027,different,wrist vs ankle
+P028,same_image,ankle MRI orange arrow; heavy augmentation; moderate confidence
+P029,same_image,wrist AP identical
+P030,same_image,metacarpals; A zoomed crop
+P031,same_image,hip MRI blue arrow
+P032,same_image,metacarpals identical
+P033,same_image,thumb lateral identical
+P034,same_image,child forearm fracture identical
+P035,same_image,metacarpals identical
+P036,same_image,lumbar sagittal MRI
+P037,same_image,hand AP; B mirrored matches A
+P038,same_image,forearm lateral with RED DOT text
+P039,same_image,hip MRI blue arrow
+P040,unsure,wrist; A appears rotated 180 relative to B; cannot confirm
+P041,same_image,metacarpals; A is crop
+P042,same_image,thumb/hand lateral; rotated + flipped; moderate confidence
+P043,same_image,child forearm; B mirrored matches A
+P044,same_image,ankle with E marker; B is flipped copy
+P045,same_image,shoulder with L marker
+P046,same_image,wrist with Right label
+P047,same_image,knee/tibia R marker
+P048,same_image,lumbar MRI
+P049,same_image,hand AP; A same as P037 A; moderate confidence
+P050,same_image,wrist; A is zoom/crop of B-type image with * and RR; moderate confidence
+P051,same_image,ankle MRI orange arrow; heavy augmentation; moderate confidence
+P052,same_image,femur fracture
+P053,different,thumb lateral vs elbow/arm lateral
+P054,same_image,lumbar MRI
+P055,same_image,thumb lateral; rotated/flipped
+P056,same_image,ankle lateral L marker
+P057,same_image,ankle MRI orange arrow; moderate confidence
+P058,same_image,hand with R marker; A rotated crop
+P059,same_image,tibia fibula fracture L marker
+P060,same_image,tibia fibula fracture L marker
+P061,same_image,lumbar MRI
+P062,same_image,hand AP; A is B rotated 180; low-moderate confidence
+P063,same_image,distal forearm fracture identical
+P064,same_image,femur fracture
+P065,same_image,wrist; A zoom of B-type image; moderate confidence
+P066,same_image,hand with R marker; B mirrored

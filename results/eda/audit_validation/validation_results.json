@@ -1,0 +1,107 @@
+{
+ "T_weakest": {
+  "n": 12,
+  "same_image": 12,
+  "same_patient": 0,
+  "different": 0,
+  "unsure": 0,
+  "ci_same_image": [
+   0.757,
+   1.0
+  ],
+  "ci_same_any": [
+   0.757,
+   1.0
+  ]
+ },
+ "T_random": {
+  "n": 8,
+  "same_image": 8,
+  "same_patient": 0,
+  "different": 0,
+  "unsure": 0,
+  "ci_same_image": [
+   0.676,
+   1.0
+  ],
+  "ci_same_any": [
+   0.676,
+   1.0
+  ]
+ },
+ "C_chain": {
+  "n": 2,
+  "same_image": 2,
+  "same_patient": 0,
+  "different": 0,
+  "unsure": 0,
+  "ci_same_image": [
+   0.342,
+   1.0
+  ],
+  "ci_same_any": [
+   0.342,
+   1.0
+  ]
+ },
+ "B_border": {
+  "n": 16,
+  "same_image": 13,
+  "same_patient": 0,
+  "different": 2,
+  "unsure": 1,
+  "ci_same_image": [
+   0.57,
+   0.934
+  ],
+  "ci_same_any": [
+   0.57,
+   0.934
+  ]
+ },
+ "R_below": {
+  "n": 16,
+  "same_image": 9,
+  "same_patient": 1,
+  "different": 5,
+  "unsure": 1,
+  "ci_same_image": [
+   0.332,
+   0.769
+  ],
+  "ci_same_any": [
+   0.386,
+   0.815
+  ]
+ },
+ "N_hard": {
+  "n": 8,
+  "same_image": 8,
+  "same_patient": 0,
+  "different": 0,
+  "unsure": 0,
+  "ci_same_image": [
+   0.676,
+   1.0
+  ],
+  "ci_same_any": [
+   0.676,
+   1.0
+  ]
+ },
+ "P_control": {
+  "n": 4,
+  "same_image": 4,
+  "same_patient": 0,
+  "different": 0,
+  "unsure": 0,
+  "ci_same_image": [
+   0.51,
+   1.0
+  ],
+  "ci_same_any": [
+   0.51,
+   1.0
+  ]
+ }
+}
