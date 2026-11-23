@@ -157,3 +157,15 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Notebook 11 (notebooks/kaggle/11_clean_v2_seeds43_44.ipynb): YOLO11s (A) and YOLOv8s (B), seeds 43/44 on v2, 10 runs per part; scripts/evaluation/compare_v2_seeds.py aggregates the 3 seeds. NOT run yet (user starts).
 - Miss analysis on v2 (results/analysis/miss_analysis_v2.*): MRI miss 42-48% vs X-ray 57-59%; modality-gap premise of M1/M3/M4 not supported; demoted to analysis. docs/METHOD_DESIGN.md: C1 group-balanced training (cap 12, repeat up to x4, target 7, steps matched), C2 resolution, C3 RF-DETR, pre-registered gate (+0.9 pt, >= 4/5 folds, v2, seeds 42-44).
 - run_baseline.py: new flags --group-balance, --gb-target, --gb-cap, --gb-max-repeat, --gb-match-steps (baseline behaviour unchanged, verified by identical list). Notebook 12 (12_method_group_balance.ipynb) and scripts/evaluation/compare_method.py prepared; not run.
+
+## 2026-11-23 Figures and manuscript outline (while notebook 11 trains)
+- Pushed 79f497b. User started notebook 11 parts A and B.
+- scripts/figures/make_figures.py -> results/figures/fig1 (score chain), fig2 (similarity-recall), fig3 (group sizes; v1 has 157 singleton groups, v2 only 30). docs/PAPER_OUTLINE.md written (contributions C1-C6, section plan, figure/table list, missing items).
+
+## 2026-11-23 Notebook 11 done: 3-seed v2 baselines, noise floor, gate fixed
+- Notebook 11 parts A (YOLO11s) and B (YOLOv8s), seeds 43/44, 20 runs, no failures; folders results/v2s_A, results/v2s_B.
+- 3-seed v2: YOLO11s 0.1539, YOLOv8s 0.1513, gap +0.26 +/- 2.36 pts (3/5 folds): tie. Seed-42 ranking was noise (seed 43 reverses it by 2.5 pts). results/analysis/v2_three_seeds.*, docs/RESULTS_V2_BENCHMARK.md (update section).
+- Noise floor (scripts/evaluation/noise_floor_v2.py): per-run seed sd 2.08 pts (20 df), seed sd of the 5-fold mean 1.06 pts; 2-sigma detectable effect at 3 seeds 1.52-1.74 pts. Gate raised +0.9 -> +1.8 pts before any method run (docs/METHOD_DESIGN.md 3b); compare_method.py default --gate 0.018, robust A/B matching, INCOMPLETE guard; tested on a fake seed-permuted arm (gain 0 -> FAIL).
+- Notebook 12 pre-checks: group-balanced lists OK on all 5 folds (897-957 -> 1133-1160 images, epochs 78-82); Ultralytics 8.4.215 keeps repeated list lines (source checked).
+- Fig 1 now all 3 seeds (official 0.494/0.485 -> v1 0.217/0.222 -> v2 0.151/0.154). PAPER_OUTLINE.md numbers updated.
+- Next: user commits and pushes, then runs notebook 12 (A = YOLOv8s, B = YOLO11s).
