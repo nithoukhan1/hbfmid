@@ -1,0 +1,112 @@
+{
+ "clean_v1|yolo11s.pt|<0.80": {
+  "imgs": 134,
+  "boxes": 154,
+  "recall": 0.4155844155844156
+ },
+ "clean_v1|yolo11s.pt|0.80-0.90": {
+  "imgs": 116,
+  "boxes": 132,
+  "recall": 0.48484848484848486
+ },
+ "clean_v1|yolo11s.pt|0.90-0.95": {
+  "imgs": 33,
+  "boxes": 37,
+  "recall": 0.7837837837837838
+ },
+ "clean_v1|yolo11s.pt|>=0.95": {
+  "imgs": 108,
+  "boxes": 134,
+  "recall": 0.9552238805970149
+ },
+ "clean_v1|yolov8s.pt|<0.80": {
+  "imgs": 134,
+  "boxes": 154,
+  "recall": 0.4155844155844156
+ },
+ "clean_v1|yolov8s.pt|0.80-0.90": {
+  "imgs": 116,
+  "boxes": 132,
+  "recall": 0.4166666666666667
+ },
+ "clean_v1|yolov8s.pt|0.90-0.95": {
+  "imgs": 33,
+  "boxes": 37,
+  "recall": 0.7837837837837838
+ },
+ "clean_v1|yolov8s.pt|>=0.95": {
+  "imgs": 108,
+  "boxes": 134,
+  "recall": 0.9701492537313433
+ },
+ "clean_v2|yolo11s.pt|<0.80": {
+  "imgs": 133,
+  "boxes": 153,
+  "recall": 0.3790849673202614
+ },
+ "clean_v2|yolo11s.pt|0.80-0.90": {
+  "imgs": 128,
+  "boxes": 145,
+  "recall": 0.4482758620689655
+ },
+ "clean_v2|yolo11s.pt|0.90-0.95": {
+  "imgs": 24,
+  "boxes": 30,
+  "recall": 0.5666666666666667
+ },
+ "clean_v2|yolov8s.pt|<0.80": {
+  "imgs": 133,
+  "boxes": 153,
+  "recall": 0.42483660130718953
+ },
+ "clean_v2|yolov8s.pt|0.80-0.90": {
+  "imgs": 128,
+  "boxes": 145,
+  "recall": 0.4689655172413793
+ },
+ "clean_v2|yolov8s.pt|0.90-0.95": {
+  "imgs": 24,
+  "boxes": 30,
+  "recall": 0.6
+ },
+ "official|yolo11s.pt|<0.80": {
+  "imgs": 15,
+  "boxes": 15,
+  "recall": 0.6666666666666666
+ },
+ "official|yolo11s.pt|0.80-0.90": {
+  "imgs": 9,
+  "boxes": 9,
+  "recall": 0.7777777777777778
+ },
+ "official|yolo11s.pt|0.90-0.95": {
+  "imgs": 6,
+  "boxes": 6,
+  "recall": 1.0
+ },
+ "official|yolo11s.pt|>=0.95": {
+  "imgs": 34,
+  "boxes": 36,
+  "recall": 0.9722222222222222
+ },
+ "official|yolov8s.pt|<0.80": {
+  "imgs": 15,
+  "boxes": 15,
+  "recall": 0.8
+ },
+ "official|yolov8s.pt|0.80-0.90": {
+  "imgs": 9,
+  "boxes": 9,
+  "recall": 0.7777777777777778
+ },
+ "official|yolov8s.pt|0.90-0.95": {
+  "imgs": 6,
+  "boxes": 6,
+  "recall": 1.0
+ },
+ "official|yolov8s.pt|>=0.95": {
+  "imgs": 34,
+  "boxes": 36,
+  "recall": 0.9722222222222222
+ }
+}

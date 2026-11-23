@@ -1,0 +1,226 @@
+{
+ "thr": 0.25,
+ "n_rows": 656,
+ "models": [
+  "yolo11s.pt",
+  "yolov8s.pt"
+ ],
+ "by_size": {
+  "yolo11s.pt|<1%": {
+   "n": 56,
+   "miss": 0.714,
+   "cls_acc": 0.25
+  },
+  "yolo11s.pt|1-2%": {
+   "n": 119,
+   "miss": 0.563,
+   "cls_acc": 0.37
+  },
+  "yolo11s.pt|2-5%": {
+   "n": 111,
+   "miss": 0.477,
+   "cls_acc": 0.432
+  },
+  "yolo11s.pt|5-15%": {
+   "n": 26,
+   "miss": 0.808,
+   "cls_acc": 0.192
+  },
+  "yolo11s.pt|>=15%": {
+   "n": 16,
+   "miss": 0.438,
+   "cls_acc": 0.562
+  },
+  "yolov8s.pt|<1%": {
+   "n": 56,
+   "miss": 0.589,
+   "cls_acc": 0.357
+  },
+  "yolov8s.pt|1-2%": {
+   "n": 119,
+   "miss": 0.588,
+   "cls_acc": 0.361
+  },
+  "yolov8s.pt|2-5%": {
+   "n": 111,
+   "miss": 0.414,
+   "cls_acc": 0.486
+  },
+  "yolov8s.pt|5-15%": {
+   "n": 26,
+   "miss": 0.731,
+   "cls_acc": 0.231
+  },
+  "yolov8s.pt|>=15%": {
+   "n": 16,
+   "miss": 0.562,
+   "cls_acc": 0.438
+  }
+ },
+ "by_mod": {
+  "yolo11s.pt|MRI": {
+   "n": 62,
+   "miss": 0.484,
+   "cls_acc": 0.484
+  },
+  "yolo11s.pt|XR": {
+   "n": 266,
+   "miss": 0.594,
+   "cls_acc": 0.338
+  },
+  "yolov8s.pt|MRI": {
+   "n": 62,
+   "miss": 0.419,
+   "cls_acc": 0.548
+  },
+  "yolov8s.pt|XR": {
+   "n": 266,
+   "miss": 0.568,
+   "cls_acc": 0.361
+  }
+ },
+ "by_cls_name": {
+  "yolo11s.pt|Comminuted": {
+   "n": 38,
+   "miss": 0.5,
+   "cls_acc": 0.447
+  },
+  "yolo11s.pt|Greenstick": {
+   "n": 21,
+   "miss": 0.571,
+   "cls_acc": 0.333
+  },
+  "yolo11s.pt|Healthy": {
+   "n": 12,
+   "miss": 0.333,
+   "cls_acc": 0.667
+  },
+  "yolo11s.pt|Linear": {
+   "n": 5,
+   "miss": 1.0,
+   "cls_acc": 0.0
+  },
+  "yolo11s.pt|Oblique": {
+   "n": 10,
+   "miss": 0.7,
+   "cls_acc": 0.1
+  },
+  "yolo11s.pt|Oblique Displaced": {
+   "n": 68,
+   "miss": 0.618,
+   "cls_acc": 0.324
+  },
+  "yolo11s.pt|Segmental": {
+   "n": 4,
+   "miss": 1.0,
+   "cls_acc": 0.0
+  },
+  "yolo11s.pt|Spiral": {
+   "n": 15,
+   "miss": 0.667,
+   "cls_acc": 0.333
+  },
+  "yolo11s.pt|Transverse": {
+   "n": 24,
+   "miss": 0.708,
+   "cls_acc": 0.0
+  },
+  "yolo11s.pt|Transverse Displaced": {
+   "n": 131,
+   "miss": 0.519,
+   "cls_acc": 0.458
+  },
+  "yolov8s.pt|Comminuted": {
+   "n": 38,
+   "miss": 0.474,
+   "cls_acc": 0.474
+  },
+  "yolov8s.pt|Greenstick": {
+   "n": 21,
+   "miss": 0.619,
+   "cls_acc": 0.333
+  },
+  "yolov8s.pt|Healthy": {
+   "n": 12,
+   "miss": 0.5,
+   "cls_acc": 0.5
+  },
+  "yolov8s.pt|Linear": {
+   "n": 5,
+   "miss": 0.8,
+   "cls_acc": 0.0
+  },
+  "yolov8s.pt|Oblique": {
+   "n": 10,
+   "miss": 0.7,
+   "cls_acc": 0.2
+  },
+  "yolov8s.pt|Oblique Displaced": {
+   "n": 68,
+   "miss": 0.632,
+   "cls_acc": 0.338
+  },
+  "yolov8s.pt|Segmental": {
+   "n": 4,
+   "miss": 0.75,
+   "cls_acc": 0.0
+  },
+  "yolov8s.pt|Spiral": {
+   "n": 15,
+   "miss": 0.733,
+   "cls_acc": 0.267
+  },
+  "yolov8s.pt|Transverse": {
+   "n": 24,
+   "miss": 0.708,
+   "cls_acc": 0.042
+  },
+  "yolov8s.pt|Transverse Displaced": {
+   "n": 131,
+   "miss": 0.42,
+   "cls_acc": 0.527
+  }
+ },
+ "unique_boxes": 328,
+ "never_found": 158,
+ "always_found": 121,
+ "mixed": 49,
+ "never_found_by_size": {
+  "<1%": 31,
+  "1-2%": 59,
+  "2-5%": 43,
+  "5-15%": 18,
+  ">=15%": 7
+ },
+ "unique_by_size": {
+  "<1%": 56,
+  "1-2%": 119,
+  "2-5%": 111,
+  "5-15%": 26,
+  ">=15%": 16
+ },
+ "never_found_by_class": {
+  "Transverse Displaced": 49,
+  "Oblique Displaced": 40,
+  "Comminuted": 17,
+  "Transverse": 14,
+  "Greenstick": 12,
+  "Spiral": 10,
+  "Oblique": 5,
+  "Healthy": 4,
+  "Linear": 4,
+  "Segmental": 3
+ },
+ "never_found_by_mod": {
+  "XR": 133,
+  "MRI": 25
+ },
+ "unique_by_mod": {
+  "XR": 266,
+  "MRI": 62
+ },
+ "median_area_found_vs_never": {
+  "always_found": 0.021383488548138378,
+  "never_found": 0.01816510015682833
+ }
+}

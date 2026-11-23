@@ -147,3 +147,13 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - YOLO11s clean v2 0.1427, YOLOv8s 0.1594 (v1: 0.2260 / 0.2151): drop 8.3 / 5.6 pts. 121/391 v1 clean test images (31%) have a v2 duplicate in train; recall 0.94-0.97 on them vs 0.41-0.45 otherwise. Gap YOLO11s-YOLOv8s flips sign again (v2 -1.66 +/- 1.88, 0/5 folds). See docs/RESULTS_V2_BENCHMARK.md.
 - Earlier claim 'small residual leakage in v1' corrected. All v1-fold results (Gate C arms, RT-DETR, miss analysis) are contaminated.
 - NEXT: decide on seeds 43/44 and RT-DETR on v2, re-check best Gate C arms on v2, paper option A/B/C (evaluation paper now has a stronger core: sensitivity of reported accuracy to duplicate detection).
+
+## 2026-11-23 Decision: option C (hybrid). Evidence note + similarity-recall analysis
+- User chose option C: evaluation paper as base + one gated method experiment. Pushed bbe4a4c (v2 benchmark).
+- docs/EVIDENCE_LEAKAGE.md, scripts/evaluation/similarity_recall.py, results/analysis/similarity_recall.{json,md}: recall vs similarity-to-train: official/v1 reach 0.96-0.97 at NCC>=0.95; v2 has none >=0.95, residual mild gradient at 0.90-0.95 (n=24 images).
+- Method protocol (proposal): gate on v2 (3 seeds x 5 folds); official (3 seeds) reported for comparability and as a leak-exploitation diagnostic; v1 only for baselines in the sensitivity table, not for the method.
+
+## 2026-11-23 Parallel work: notebook 11 + method design
+- Notebook 11 (notebooks/kaggle/11_clean_v2_seeds43_44.ipynb): YOLO11s (A) and YOLOv8s (B), seeds 43/44 on v2, 10 runs per part; scripts/evaluation/compare_v2_seeds.py aggregates the 3 seeds. NOT run yet (user starts).
+- Miss analysis on v2 (results/analysis/miss_analysis_v2.*): MRI miss 42-48% vs X-ray 57-59%; modality-gap premise of M1/M3/M4 not supported; demoted to analysis. docs/METHOD_DESIGN.md: C1 group-balanced training (cap 12, repeat up to x4, target 7, steps matched), C2 resolution, C3 RF-DETR, pre-registered gate (+0.9 pt, >= 4/5 folds, v2, seeds 42-44).
+- run_baseline.py: new flags --group-balance, --gb-target, --gb-cap, --gb-max-repeat, --gb-match-steps (baseline behaviour unchanged, verified by identical list). Notebook 12 (12_method_group_balance.ipynb) and scripts/evaluation/compare_method.py prepared; not run.

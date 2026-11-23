@@ -73,6 +73,29 @@ def materialize(lists, data_root, dest, name):
     return out
 
 
+def group_balance_list(train_list, data_root, assign_csv, seed, target, cap, max_repeat):
+    """Rewrite the absolute-path train list: per group keep at most `cap` images (seeded random subset), repeat each kept image
+    round(target / kept) times (clipped to [1, max_repeat]). Returns stats."""
+    import csv, random
+    rng = random.Random(seed)
+    grp = {r['path']: r['group_id'] for r in csv.DictReader(open(assign_csv))}
+    root = Path(data_root)
+    paths = [l.strip() for l in Path(train_list).read_text().splitlines() if l.strip()]
+    by = {}
+    for pth in paths:
+        rel = str(Path(pth).relative_to(root)).replace('\\', '/')
+        by.setdefault(grp[rel], []).append(pth)
+    out, sizes_before, sizes_after = [], [], []
+    for g, items in sorted(by.items(), key=lambda kv: str(kv[0])):
+        sizes_before.append(len(items))
+        kept = sorted(rng.sample(items, cap)) if len(items) > cap else items
+        r = int(min(max_repeat, max(1, round(target / len(kept)))))
+        out += kept * r; sizes_after.append(len(kept) * r)
+    Path(train_list).write_text('\n'.join(out) + '\n')
+    return {'groups': len(by), 'images_before': len(paths), 'images_after': len(out), 'max_group_before': max(sizes_before), 'max_group_after': max(sizes_after),
+            'min_group_after': min(sizes_after), 'target': target, 'cap': cap, 'max_repeat': max_repeat}
+
+
 def write_yaml(path, train, val, test, extra_names=()):
     all_names = list(CLASS_NAMES) + list(extra_names)
     names = '\n'.join(f'  {i}: {n}' for i, n in enumerate(all_names))
@@ -118,6 +141,12 @@ def main():
     ap.add_argument('--extra-names', nargs='*', default=[], help='names of the extra head classes (ids NC, NC+1, ...)')
     ap.add_argument('--arm', default='')
     ap.add_argument('--no-amp', action='store_true', help='train in fp32 (RT-DETR can give NaN losses under AMP)')
+    ap.add_argument('--group-balance', action='store_true',
+                    help='duplicate-aware training: cap large groups and repeat small ones so each grouping-v2 group has similar weight (clean mode only)')
+    ap.add_argument('--gb-target', type=float, default=7.0, help='target effective images per group (default 7 = 75th percentile of v2 group sizes)')
+    ap.add_argument('--gb-cap', type=int, default=12, help='max images kept per group (random subset, seeded)')
+    ap.add_argument('--gb-max-repeat', type=int, default=4)
+    ap.add_argument('--gb-match-steps', action='store_true', help='scale epochs by images_before/images_after so the number of optimisation steps equals the unbalanced baseline')
     ap.add_argument('--keep-weights', action='store_true')
     ap.add_argument('--allow-writable-data', action='store_true')
     ap.add_argument('--dry-run', action='store_true', help='write lists/yaml and exit (no ultralytics)')
@@ -145,6 +174,13 @@ def main():
     if a.extra_train:   # joint training: HBFMID train + extra image lists (absolute paths)
         extra = [l.strip() for ex in a.extra_train for l in Path(ex).read_text().splitlines() if l.strip()]
         lists['train'].write_text(lists['train'].read_text() + '\n'.join(extra) + '\n')
+    gb_stats = None
+    if a.group_balance:
+        assert a.mode == 'clean', '--group-balance needs the clean folds (group ids)'
+        gb_stats = group_balance_list(lists['train'], root, Path(a.splits_dir) / 'clean5' / 'assignments.csv', a.seed, a.gb_target, a.gb_cap, a.gb_max_repeat)
+        if a.gb_match_steps:
+            a.epochs = max(1, round(a.epochs * gb_stats['images_before'] / gb_stats['images_after'])); gb_stats['epochs_scaled_to'] = a.epochs
+        print(f'[{tag}] group balance: {gb_stats}')
     yaml_main = run / 'data.yaml'
     write_yaml(yaml_main, lists['train'], lists['val'], lists['test'], a.extra_names)
     probe_yaml = {}
@@ -194,7 +230,7 @@ def main():
     res = {'tag': tag, 'arm': a.arm or 'baseline', 'mode': a.mode, 'fold': a.fold if a.mode == 'clean' else None, 'model': a.model,
            'seed': a.seed, 'epochs_cfg': a.epochs, 'patience': (a.epochs if a.fixed_epochs else a.patience),
            'protocol': 'fixed_last' if a.fixed_epochs else 'earlystop_best', 'imgsz': a.imgsz, 'batch': a.batch,
-           'cls_weight': a.cls_weight, 'cls_pw': a.cls_pw, 'amp': (not a.no_amp),
+           'cls_weight': a.cls_weight, 'cls_pw': a.cls_pw, 'amp': (not a.no_amp), 'group_balance': gb_stats,
            'cls_counts': None if cls_counts is None else cls_counts.tolist(),
            'cls_weights': None if cls_w is None else [round(float(x), 4) for x in cls_w],
            'init_weights': a.init_weights, 'extra_train': a.extra_train, 'extra_names': a.extra_names,
