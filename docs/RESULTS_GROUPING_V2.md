@@ -9,8 +9,8 @@ Method (`scripts/eda/grouping_v2.py`): v1 SIFT groups (388) plus near-duplicate 
 | >= 0.97 | 307 | 129 | 102 | 27 | 4 |
 
 Reading:
-- Residual leakage in the v1 clean folds is real but limited: about 29 duplicate groups (of 282) straddle folds. The official split is far worse (48/64 test with a train copy at v1, 52/64 at v2; valid 102/128).
-- Expected effect on the clean mAP values (0.217 / 0.2225 / 0.227): small upward bias; size unmeasured until the benchmark is re-run on v2 folds.
+- [CORRECTED 2026-11-23, see docs/RESULTS_V2_BENCHMARK.md: the leakage in v1 folds covers 31% of test images and v2 mAP is 5.6-8.3 pts lower] Residual leakage in the v1 clean folds is real but limited: about 29 duplicate groups (of 282) straddle folds. The official split is far worse (48/64 test with a train copy at v1, 52/64 at v2; valid 102/128).
+- [WRONG, corrected] Expected effect on the clean mAP values (0.217 / 0.2225 / 0.227): small upward bias; size unmeasured until the benchmark is re-run on v2 folds.
 - v2 candidate folds: 282 groups, 286 test representatives (v1: 392), about 57 test images per fold, so each fold is noisier; every gate class still has >= 10 groups (Healthy 12, Oblique 10). Linear and Segmental stay exploratory.
 - Threshold 0.95 is a judgement: validated on only 8 hard negatives (0.96-0.99); the 0.90-0.95 band is unvalidated. Thumbnail NCC can link unrelated images with large black backgrounds, which would over-merge (conservative for leakage, costs test size).
 - Dihedral rot90 modes added no pairs over the earlier 4-flip scan.

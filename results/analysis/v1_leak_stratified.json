@@ -1,0 +1,38 @@
+{
+ "yolo11s.pt": {
+  "imgs_leaky": 121,
+  "imgs": 391,
+  "boxes_leaky": 148,
+  "boxes": 457,
+  "recall_nonleaky": 0.44981412639405205,
+  "imgs_band": 35,
+  "boxes_band": 40,
+  "recall_band": 0.625,
+  "recall_leaky": 0.9391891891891891,
+  "per_fold_leaky_imgs": {
+   "0": 22,
+   "1": 29,
+   "2": 19,
+   "3": 26,
+   "4": 25
+  }
+ },
+ "yolov8s.pt": {
+  "imgs_leaky": 121,
+  "imgs": 391,
+  "boxes_leaky": 148,
+  "boxes": 457,
+  "recall_nonleaky": 0.41263940520446096,
+  "imgs_band": 35,
+  "boxes_band": 40,
+  "recall_band": 0.6,
+  "recall_leaky": 0.9662162162162162,
+  "per_fold_leaky_imgs": {
+   "0": 22,
+   "1": 29,
+   "2": 19,
+   "3": 26,
+   "4": 25
+  }
+ }
+}
