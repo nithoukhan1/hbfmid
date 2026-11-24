@@ -58,7 +58,7 @@ def build_coco(rels, root, split_dir):
 
 
 def predict_all(model, rels, root, chunk=8, threshold=0.001):
-    """{rel: [[cls, conf, x1, y1, x2, y2] normalised, sorted by conf]} plus the class-id offset that was applied."""
+    """{rel: [[cls, conf, x1, y1, x2, y2] normalised, sorted by conf]} plus the number of no-object (background-slot) entries dropped."""
     from PIL import Image
     raw = {}
     for k in range(0, len(rels), chunk):
@@ -70,13 +70,29 @@ def predict_all(model, rels, root, chunk=8, threshold=0.001):
             rows = [[int(c), float(s), float(b[0]) / w, float(b[1]) / h, float(b[2]) / w, float(b[3]) / h]
                     for b, s, c in zip(d.xyxy, d.confidence, d.class_id)]
             raw[r] = sorted(rows, key=lambda q: -q[1])
-    ids = {q[0] for v in raw.values() for q in v}
-    offset = 1 if (ids and max(ids) == NC) else 0          # fine-tuned RF-DETR returns 0-based label indices; guard against 1-based ids
-    if offset:
-        raw = {r: [[q[0] - 1, *q[1:]] for q in v] for r, v in raw.items()}
-    bad = {q[0] for v in raw.values() for q in v if not 0 <= q[0] < NC}
-    assert not bad, f'predicted class ids outside 0..{NC - 1}: {sorted(bad)[:10]}'
-    return raw, offset
+    # Fine-tuned RF-DETR returns 0-based class ids. Its head has one extra logit, the no-object slot at index NC
+    # (predict() names it "__background__"); at threshold 0.001 some of the top-300 entries land there. They are not
+    # class predictions: drop them, as RF-DETR's own COCO evaluator does (label without a category -> ignored).
+    bad = {q[0] for v in raw.values() for q in v if not 0 <= q[0] <= NC}
+    assert not bad, f'unexpected class ids {sorted(bad)[:10]} (expected 0..{NC - 1} plus the no-object slot {NC})'
+    n_bg = sum(1 for v in raw.values() for q in v if q[0] == NC)
+    return {r: [q for q in v if q[0] < NC] for r, v in raw.items()}, n_bg
+
+
+def log_train_seconds(log_file):
+    """Recovered runs: training time from the timestamps of the rf-detr log lines (first line .. last line before a traceback)."""
+    import re
+    from datetime import datetime
+    if not log_file or not Path(log_file).exists():
+        return None
+    ts = []
+    for line in Path(log_file).read_text(errors='ignore').splitlines():
+        if line.startswith('Traceback'):
+            break
+        mt = re.match(r'^\[(\d{4}-\d\d-\d\d \d\d:\d\d:\d\d)\]', line)
+        if mt:
+            ts.append(datetime.strptime(mt.group(1), '%Y-%m-%d %H:%M:%S'))
+    return (ts[-1] - ts[0]).total_seconds() if len(ts) > 1 else None
 
 
 def main():
@@ -93,6 +109,9 @@ def main():
     ap.add_argument('--dry-run', action='store_true', help='build the COCO copy and exit (no rfdetr needed)')
     ap.add_argument('--pretrain-weights', default=None, help='testing only: "none" = random init (default: the package checkpoint)')
     ap.add_argument('--device-check', action='store_true', help='testing only: allow CPU')
+    ap.add_argument('--predict-only', action='store_true', help='skip training: score an already trained run from its last_ema.pth')
+    ap.add_argument('--ckpt-root', default=None, help='predict-only: folder holding <tag>/train/last_ema.pth (default: --out)')
+    ap.add_argument('--log-file', default=None, help='predict-only: notebook log of the training run (training time)')
     a = ap.parse_args()
 
     model_name = f'rfdetr-{a.size}'
@@ -108,7 +127,7 @@ def main():
     for r, L in lists.items():
         (run / 'lists' / f'{r}.txt').write_text('\n'.join(L) + '\n')
     ds = run / 'coco'
-    counts = {('valid' if r == 'val' else r): build_coco(L, root, ds / ('valid' if r == 'val' else r)) for r, L in lists.items()}
+    counts = None if a.predict_only else {('valid' if r == 'val' else r): build_coco(L, root, ds / ('valid' if r == 'val' else r)) for r, L in lists.items()}
     print(f'[{tag}] COCO copy: {counts}')
     if a.dry_run:
         print('[dry-run] COCO copy written to', ds); return
@@ -117,18 +136,27 @@ def main():
     from importlib.metadata import version as _version
     from rfdetr import RFDETR, RFDETRNano, RFDETRSmall, RFDETRMedium, RFDETRLarge
     cls = {'nano': RFDETRNano, 'small': RFDETRSmall, 'medium': RFDETRMedium, 'large': RFDETRLarge}[a.size]
-    t0 = time.time()
     if not a.device_check:
         assert torch.cuda.is_available(), 'no GPU'
-    kw = {} if a.pretrain_weights is None else {'pretrain_weights': None if a.pretrain_weights.lower() == 'none' else a.pretrain_weights}
-    model = cls(resolution=a.resolution, **kw)
-    model.train(dataset_dir=str(ds), output_dir=str(run / 'train'), epochs=a.epochs, batch_size=a.batch, grad_accum_steps=a.accum,
-                lr=a.lr, lr_encoder=a.lr_encoder, seed=a.seed, use_ema=True, early_stopping=False, num_workers=a.workers,
-                eval_interval=a.eval_interval, checkpoint_interval=a.epochs, tensorboard=False, progress_bar=None,
-                class_names=list(CLASS_NAMES), run_test=False)
-    train_s = time.time() - t0
-    mem_gb = round(torch.cuda.max_memory_allocated() / 1e9, 2) if torch.cuda.is_available() else None
-    ck = run / 'train' / 'last_ema.pth'
+    if a.predict_only:
+        src = (Path(a.ckpt_root).resolve() / tag) if a.ckpt_root else run
+        ck = src / 'train' / 'last_ema.pth'
+        (run / 'train').mkdir(exist_ok=True)
+        for f in ('metrics.csv', 'training_config.json'):
+            if src != run and (src / 'train' / f).exists():
+                shutil.copy(src / 'train' / f, run / 'train' / f)
+        train_s, mem_gb, train_src = log_train_seconds(a.log_file), None, 'recovered: rf-detr log timestamps'
+    else:
+        t0 = time.time()
+        kw = {} if a.pretrain_weights is None else {'pretrain_weights': None if a.pretrain_weights.lower() == 'none' else a.pretrain_weights}
+        model = cls(resolution=a.resolution, **kw)
+        model.train(dataset_dir=str(ds), output_dir=str(run / 'train'), epochs=a.epochs, batch_size=a.batch, grad_accum_steps=a.accum,
+                    lr=a.lr, lr_encoder=a.lr_encoder, seed=a.seed, use_ema=True, early_stopping=False, num_workers=a.workers,
+                    eval_interval=a.eval_interval, checkpoint_interval=a.epochs, tensorboard=False, progress_bar=None,
+                    class_names=list(CLASS_NAMES), run_test=False)
+        train_s, train_src = time.time() - t0, 'measured'
+        mem_gb = round(torch.cuda.max_memory_allocated() / 1e9, 2) if torch.cuda.is_available() else None
+        ck = run / 'train' / 'last_ema.pth'
     assert ck.exists(), f'missing {ck}: {sorted(p.name for p in (run / "train").iterdir())}'
     try:
         m = RFDETR.from_checkpoint(str(ck))
@@ -138,14 +166,15 @@ def main():
     res = {'tag': tag, 'arm': 'baseline', 'mode': a.mode, 'fold': a.fold if a.mode == 'clean' else None, 'model': model_name, 'seed': a.seed,
            'epochs_cfg': a.epochs, 'patience': a.epochs, 'protocol': 'fixed_last', 'checkpoint': 'last_ema.pth', 'imgsz': a.resolution,
            'batch': a.batch * a.accum, 'batch_physical': a.batch, 'grad_accum': a.accum, 'lr': a.lr, 'lr_encoder': a.lr_encoder,
-           'amp': 'auto (fp16 on T4)', 'n_images': {r: len(L) for r, L in lists.items()}, 'coco_copy': counts, 'train_seconds': round(train_s, 1), 'gpu_mem_peak_gb': mem_gb,
+           'amp': 'auto (fp16 on T4)', 'n_images': {r: len(L) for r, L in lists.items()}, 'coco_copy': counts, 'train_seconds': None if train_s is None else round(train_s, 1), 'train_seconds_source': train_src, 'gpu_mem_peak_gb': mem_gb,
+           'recovered_from': str(ck) if a.predict_only else None,
            'rfdetr': _version('rfdetr'), 'pretrain_weights': a.pretrain_weights or 'package default', 'torch': torch.__version__, 'python': platform.python_version(),
            'gpu': torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'cpu',
            'evaluator': 'scripts/evaluation/offline_eval.py (replica of the Ultralytics 8.4.215 box metric)'}
     gt = {r: load_gt(label_of(root, r)) for r in set(lists['val']) | set(lists['test'])}
     for split in ['val', 'test']:
-        P, off = predict_all(m, lists[split], root)
-        res['class_id_offset'] = off
+        P, n_bg = predict_all(m, lists[split], root)
+        res[f'no_object_preds_dropped_{split}'] = n_bg
         res[split] = evaluate(P, {r: gt[r] for r in lists[split]})
         if split == 'test':
             (run / 'preds_test_c001.json').write_text(json.dumps({r: [[q[0], round(q[1], 5), *[round(x, 6) for x in q[2:]]] for q in v] for r, v in P.items()}))
@@ -161,11 +190,11 @@ def main():
                         'test_gt_boxes_per_class': {CLASS_NAMES[c]: sum(1 for r in lists['test'] for b in gt[r] if b[0] == c) for c in range(NC)}})
     (run / 'metrics.json').write_text(json.dumps(res, indent=2))
     shutil.rmtree(ds, ignore_errors=True)
-    if not a.keep_weights:
+    if not a.keep_weights and not a.predict_only:
         for p in (run / 'train').glob('*'):
             if p.suffix in ('.pth', '.ckpt', '.pt'):
                 p.unlink()
-    print(f"[{tag}] test mAP50-95={res['test']['map5095']:.4f} mAP50={res['test']['map50']:.4f} macro_eligible={res['test']['macro_eligible_ap5095']} train_min={train_s / 60:.1f}")
+    print(f"[{tag}] test mAP50-95={res['test']['map5095']:.4f} mAP50={res['test']['map50']:.4f} macro_eligible={res['test']['macro_eligible_ap5095']} train_min={'n/a' if train_s is None else round(train_s / 60, 1)}")
 
 
 if __name__ == '__main__':

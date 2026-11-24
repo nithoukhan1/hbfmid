@@ -1,0 +1,12 @@
+true\pred,Comminuted,Greenstick,Healthy,Linear,Oblique Displaced,Oblique,Segmental,Spiral,Transverse Displaced,Transverse,background
+Comminuted,3,0,0,0,0,0,0,0,0,0,5
+Greenstick,0,1,0,0,0,1,0,0,1,0,1
+Healthy,0,0,2,0,0,0,0,0,0,0,0
+Linear,0,0,0,0,0,0,0,0,0,0,1
+Oblique Displaced,0,0,0,0,6,0,0,0,0,0,8
+Oblique,0,0,0,0,0,0,0,0,0,1,1
+Segmental,0,0,0,0,0,0,0,0,1,0,0
+Spiral,0,0,0,0,0,0,0,1,0,0,2
+Transverse Displaced,0,1,0,0,0,0,0,0,14,0,12
+Transverse,0,0,0,0,0,0,0,0,0,0,6
+background,3,1,2,0,2,1,0,3,12,1,0
