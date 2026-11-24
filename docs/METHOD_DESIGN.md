@@ -49,3 +49,4 @@ Source: results/analysis/noise_floor_v2.{json,md} (scripts/evaluation/noise_floo
 - YOLOv8s (primary): -0.47 pt [95% CI -1.77, +0.83], 3/5 folds positive: FAIL. YOLO11s (replication): -0.59 pt [-2.09, +0.90], 2/5: not the same direction.
 - Stop rule applied: no tuning, no second setting. C1 is reported as a negative result.
 - Next: C3 (RF-DETR as a benchmark row) or stop the method track; decision pending.
+- 2026-11-24: C3 started as a benchmark row (RF-DETR-Medium), together with YOLOv8m and RT-DETR-L on v2; protocol and rules fixed before the runs in docs/BENCHMARK_V2_PLAN.md.

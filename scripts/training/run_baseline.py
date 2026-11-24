@@ -102,6 +102,32 @@ def write_yaml(path, train, val, test, extra_names=()):
     path.write_text(f"train: {train}\nval: {val}\ntest: {test}\nnc: {len(all_names)}\nnames:\n{names}\n")
 
 
+def save_val_preds(pred_json, test_rel, root, ultra, out_path):
+    """Convert Ultralytics' validator export (COCO-style, 1-based category_id for custom data, xywh pixels) to
+    {rel: [[cls, conf, x1, y1, x2, y2] normalised]} in the validator's order, delete the export, and re-score it with
+    the shared offline evaluator. Never raises: a failure is recorded in metrics.json instead."""
+    try:
+        from PIL import Image
+        from evaluation.offline_eval import evaluate, gt_for
+        name2rel = {Path(r).name: r for r in test_rel}
+        assert len(name2rel) == len(test_rel), 'test file names are not unique'
+        size = {r: Image.open(Path(root) / r).size for r in test_rel}
+        pv = {}
+        for d in json.loads(Path(pred_json).read_text()):
+            r = name2rel[d['file_name']]; w, h = size[r]; x, y, bw, bh = d['bbox']
+            pv.setdefault(r, []).append([int(d['category_id']) - 1, float(d['score']),
+                                         round(x / w, 6), round(y / h, 6), round((x + bw) / w, 6), round((y + bh) / h, 6)])
+        for r in test_rel:
+            pv.setdefault(r, [])
+        Path(out_path).write_text(json.dumps(pv))
+        Path(pred_json).unlink()
+        o = evaluate(pv, gt_for(test_rel, root), keep_order=True)
+        return {'offline_map5095': o['map5095'], 'ultralytics_map5095': ultra['map5095'], 'abs_diff_map5095': abs(o['map5095'] - ultra['map5095']),
+                'offline_map50': o['map50'], 'ultralytics_map50': ultra['map50'], 'n_preds': sum(len(v) for v in pv.values())}
+    except Exception as e:  # noqa: BLE001
+        return {'error': repr(e)}
+
+
 def extract(m):
     box = m.box
     idx = [int(i) for i in box.ap_class_index]
@@ -148,6 +174,9 @@ def main():
     ap.add_argument('--gb-max-repeat', type=int, default=4)
     ap.add_argument('--gb-match-steps', action='store_true', help='scale epochs by images_before/images_after so the number of optimisation steps equals the unbalanced baseline')
     ap.add_argument('--keep-weights', action='store_true')
+    ap.add_argument('--save-val-preds', action='store_true',
+                    help='keep the predictions Ultralytics scored on the test split (save_json) as preds_test_val.json and '
+                         'store the offline-evaluator parity in metrics.json (shared evaluator for non-Ultralytics detectors)')
     ap.add_argument('--allow-writable-data', action='store_true')
     ap.add_argument('--dry-run', action='store_true', help='write lists/yaml and exit (no ultralytics)')
     a = ap.parse_args()
@@ -222,10 +251,10 @@ def main():
     wdir = run / 'train' / 'weights'
     model = load_model(wdir / ('last.pt' if a.fixed_epochs else 'best.pt'))
 
-    def run_val(yaml_path, split, name, m=None):
+    def run_val(yaml_path, split, name, m=None, save_json=False):
         return extract((m or model).val(data=str(yaml_path), split=split, imgsz=a.imgsz, batch=a.batch, conf=0.001,
                                  iou=0.7, device=a.device, workers=a.workers, project=str(run), name=name,
-                                 exist_ok=True, plots=False, verbose=False))
+                                 exist_ok=True, plots=False, verbose=False, save_json=save_json))
 
     res = {'tag': tag, 'arm': a.arm or 'baseline', 'mode': a.mode, 'fold': a.fold if a.mode == 'clean' else None, 'model': a.model,
            'seed': a.seed, 'epochs_cfg': a.epochs, 'patience': (a.epochs if a.fixed_epochs else a.patience),
@@ -247,7 +276,10 @@ def main():
     except Exception as e:  # noqa: BLE001
         res['results_csv_error'] = str(e)
     res['val'] = run_val(yaml_main, 'val', 'val_val')
-    res['test'] = run_val(yaml_main, 'test', 'val_test')
+    res['test'] = run_val(yaml_main, 'test', 'val_test', save_json=a.save_val_preds)
+    if a.save_val_preds:
+        res['test_offline_parity'] = save_val_preds(run / 'val_test' / 'predictions.json', read_list(files['test']), root, res['test'],
+                                                    run / 'preds_test_val.json')
     for name, y in probe_yaml.items():
         res['probe_' + name] = run_val(y, 'test', 'probe_' + name)
     if a.fixed_epochs:   # secondary: validation-selected checkpoint, to compare noise

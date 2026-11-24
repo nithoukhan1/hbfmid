@@ -176,3 +176,10 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Exploratory (gb_diagnostics.py): no gain on the validation folds either (+0.07 / +0.37 pt); lower training loss but unchanged validation loss (repeats memorised, no transfer); class exposure changed by at most +/-18%.
 - Miss analysis with all 6 baseline runs per fold: 39% of test boxes never found, 28% always, 33% run-dependent; MRI still not weaker than X-ray.
 - Next: decide C3 (RF-DETR benchmark row on v2) vs stop the method track; start the manuscript.
+
+## 2026-11-24 Option C: complete the v2 benchmark with YOLOv8m, RT-DETR-L and RF-DETR (DINOv2)
+- Pushed 3e8dd5d (notebook 12). User chose option C.
+- Shared evaluator scripts/evaluation/offline_eval.py: exact numpy replica of the Ultralytics 8.4.215 box metric. Unit parity vs the real Ultralytics functions: max difference 0 over 20 random scenarios; end-to-end parity on a real validation export: 0.709163 vs 0.709163 (scripts/evaluation/test_offline_eval_parity.py). Old preds_test.json files (single-label, conf >= 0.05) re-score 1.8 pt lower on average: not usable for mAP comparisons.
+- run_baseline.py: optional --save-val-preds (keeps the predictions Ultralytics scored, checks parity per run; default off, earlier behaviour unchanged). Ultralytics exports 1-based category ids for custom data (handled); save_json also triggers a COCO evaluation that only adds keys (mAP unchanged); faster-coco-eval pre-installed in the notebooks.
+- RF-DETR: rfdetr 1.11.2 (Apache 2.0 for N/S/M/L), pipeline scripts/rfdetr_bench/train_rfdetr.py (COCO copy with symlinks, fixed epochs, seed, EMA, last_ema.pth, chunked predict, shared evaluator, run_baseline schema). CPU tests in the cloud found and fixed a package-name clash (scripts/rfdetr -> scripts/rfdetr_bench) and the missing __version__; class ids 0-based confirmed; official-mode probes work.
+- Notebooks 13 (YOLOv8m, 17 runs), 14 (RT-DETR-L, parts A/B), 15 (RF-DETR, smoke + parts A/B/C with a 12 h time guard). Protocol and decision rules fixed in docs/BENCHMARK_V2_PLAN.md before any run.
