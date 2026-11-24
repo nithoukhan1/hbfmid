@@ -1,0 +1,15 @@
+train: /kaggle/working/results/gb_B/clean_f4_yolo11s_s44_fx_gb/lists/train.txt
+val: /kaggle/working/results/gb_B/clean_f4_yolo11s_s44_fx_gb/lists/val.txt
+test: /kaggle/working/results/gb_B/clean_f4_yolo11s_s44_fx_gb/lists/test.txt
+nc: 10
+names:
+  0: Comminuted
+  1: Greenstick
+  2: Healthy
+  3: Linear
+  4: Oblique Displaced
+  5: Oblique
+  6: Segmental
+  7: Spiral
+  8: Transverse Displaced
+  9: Transverse

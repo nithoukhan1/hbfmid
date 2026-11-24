@@ -44,3 +44,8 @@ Source: results/analysis/noise_floor_v2.{json,md} (scripts/evaluation/noise_floo
 
 ## 5. Execution plan
 1. Now: user starts notebook 11 (baselines seeds 43/44 on v2). 2. When it finishes: compute the noise floor (compare_v2_seeds.py), confirm the gate. [Done 2026-11-23: gate +1.8 pt, section 3b] 3. Run notebook 12 (parts A and B). 4. compare_method.py -> gate decision -> document. 5. Official-split check for the passing method (3 seeds).
+
+## 6. Outcome of C1 (2026-11-24, notebook 12; details in docs/RESULTS_METHOD_GB.md)
+- YOLOv8s (primary): -0.47 pt [95% CI -1.77, +0.83], 3/5 folds positive: FAIL. YOLO11s (replication): -0.59 pt [-2.09, +0.90], 2/5: not the same direction.
+- Stop rule applied: no tuning, no second setting. C1 is reported as a negative result.
+- Next: C3 (RF-DETR as a benchmark row) or stop the method track; decision pending.

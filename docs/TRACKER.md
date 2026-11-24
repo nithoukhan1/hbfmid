@@ -169,3 +169,10 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - Notebook 12 pre-checks: group-balanced lists OK on all 5 folds (897-957 -> 1133-1160 images, epochs 78-82); Ultralytics 8.4.215 keeps repeated list lines (source checked).
 - Fig 1 now all 3 seeds (official 0.494/0.485 -> v1 0.217/0.222 -> v2 0.151/0.154). PAPER_OUTLINE.md numbers updated.
 - Next: user commits and pushes, then runs notebook 12 (A = YOLOv8s, B = YOLO11s).
+
+## 2026-11-24 Notebook 12 done: C1 group-balanced training FAILS the pre-registered gate
+- Pushed d5ecff6 (gate 1.8 pt fixed before the runs). Notebook 12 parts A (YOLOv8s) and B (YOLO11s), 30 runs, no failures; results/gb_A, results/gb_B. Balancing verified in metrics.json and in the Ultralytics logs (1133-1160 training entries).
+- Gate (compare_method.py): YOLOv8s -0.47 pt [-1.77, +0.83], 3/5 folds: FAIL; YOLO11s -0.59 pt [-2.09, +0.90], 2/5. Stop rule: no tuning. docs/RESULTS_METHOD_GB.md.
+- Exploratory (gb_diagnostics.py): no gain on the validation folds either (+0.07 / +0.37 pt); lower training loss but unchanged validation loss (repeats memorised, no transfer); class exposure changed by at most +/-18%.
+- Miss analysis with all 6 baseline runs per fold: 39% of test boxes never found, 28% always, 33% run-dependent; MRI still not weaker than X-ray.
+- Next: decide C3 (RF-DETR benchmark row on v2) vs stop the method track; start the manuscript.
