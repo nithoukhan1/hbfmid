@@ -197,3 +197,10 @@ Workflow: VS Code -> GitHub (repo not created yet) -> Kaggle clone -> "Save Vers
 - RF-DETR-M so far: official 48.71 (sd 0.54); clean fold 0 seed 42 17.80 (YOLOv8s fold 0: 12.04). One run: no conclusion. Exploratory leak probe: RF-DETR +0.5 pt vs +4.4 to +5.5 pt for the other four (noisy, 16-image subset).
 - Notebook 15 parts B and C: 14 runs trained fully, stopped at the old bug, outputs saved -> recover with notebook 16.
 - NEXT: user pushes; notebook 16 for part B and for part C; then the RF-DETR row and its pre-declared test, rank agreement (Kendall tau), Table 3 + benchmark figure, manuscript draft.
+
+## 2026-11-26 afternoon: RF-DETR row complete; pre-declared RF-DETR test supported
+- Pushed 0fac441. Notebook 16 parts B and C: 14/14 recovered -> results/rfd_B, results/rfd_C (recovery logs in */logs_recovery). Empty leftovers results/rfd_rec_results_b and _c (git ignores them).
+- benchmark_v2.py, all 5 rows complete: RF-DETR-M 20.62 vs YOLOv8s 15.13: +5.49 pt [+1.11, +9.87], 5/5 folds -> "better" (pre-declared). YOLO11s, YOLOv8m, RT-DETR-L not distinguishable. Official: RF-DETR third (48.71); official / v2 2.36x vs 3.15-3.33x. Kendall tau +0.20 (exploratory).
+- Controls inside the benchmark: the same evaluator puts RF-DETR below YOLOv8s on the official split; every detector uses multi-label top-300 decoding (checked in the library sources) and RT-DETR-L, decoded like RF-DETR, shows no gain; similar-size models show no gain.
+- Claude Science plugin added by the user.
+- NEXT: robustness (leak test per detector on v2, per-class/modality, miss analysis), Table 3 + benchmark figure, reframe the paper (leakage hides a generalisation gap), manuscript.

@@ -1,0 +1,11 @@
+/usr/local/lib/python3.13/dist-packages/rfdetr/detr.py:841: FutureWarning: The `RFDETRBase` was deprecated since v1.7.0. It will be removed in v2.0.0.
+  getattr(variant_obj, "__name__", symbol): variant_obj
+/usr/local/lib/python3.13/dist-packages/rfdetr/detr.py:841: FutureWarning: The `RFDETRLargeDeprecated` was deprecated since v1.7.0. It will be removed in v2.0.0.
+  getattr(variant_obj, "__name__", symbol): variant_obj
+/usr/local/lib/python3.13/dist-packages/rfdetr/detr.py:841: FutureWarning: The `RFDETRSegPreview` was deprecated since v1.7.0. It will be removed in v2.0.0.
+  getattr(variant_obj, "__name__", symbol): variant_obj
+[2026-11-26 04:54:32] [WARNING] rf-detr - Using a different number of positional encodings than DINOv2, which means we're not loading DINOv2 backbone weights. This is not a problem if finetuning a pretrained RF-DETR model.
+[2026-11-26 04:54:32] [WARNING] rf-detr - Using patch size 16 instead of 14, which means we're not loading DINOv2 backbone weights. This is not a problem if finetuning a pretrained RF-DETR model.
+[2026-11-26 04:54:40] [WARNING] rf-detr - Model is not optimized for inference. Latency may be higher than expected. For full GPU throughput (e.g. ~8x on T4 via FP16 Tensor Cores), call model.inference(dtype=torch.float16).
+[clean_f1_rfdetr-medium_s44_fx] COCO copy: None
+[clean_f1_rfdetr-medium_s44_fx] test mAP50-95=0.2758 mAP50=0.5290 macro_eligible=0.3102979465171503 train_min=165.9
